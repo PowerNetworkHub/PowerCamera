@@ -1,0 +1,6 @@
+cameras:
+   Dummy:
+      duration: 10
+      points: []
+
+players: []

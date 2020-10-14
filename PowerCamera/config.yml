@@ -1,0 +1,12 @@
+# -------------------- PowerCamera --------------------
+# Create cinematic views on your server
+# -----------------------------------------------------
+#                   point-preview-time
+# Set the preview duration of a point in seconds
+# -----------------------------------------------------
+#             on-new-player-join-camera-path
+# Show a camera path when a new player joins
+# -----------------------------------------------------
+
+point-preview-time: 5
+on-new-player-join-camera-path: ""
