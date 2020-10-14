@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 public class CameraHandler extends BukkitRunnable {
 
@@ -77,7 +78,8 @@ public class CameraHandler extends BukkitRunnable {
 //		player.setInvisible(true);
 
 		runTaskTimer(this.plugin, 1L, 1L);
-		this.plugin.player_camera_active.put(this.player, true);
+//		this.plugin.player_camera_active.put(this.player, true);
+		player.teleport(camera_path_points.get(0));
 
 		this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
 	}
@@ -92,15 +94,24 @@ public class CameraHandler extends BukkitRunnable {
 
 		player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + camera_name + "' has ended!");
 	}
+	
+	private Vector calculateVelocity(Location start, Location end) {
+		return new Vector(end.getX() - start.getX(), end.getY() - start.getY(), end.getZ() - start.getZ());
+	}
 
 	@Override
 	public void run() {
-		if (this.ticks > camera_path_points.size() - 1) {
+		if (this.ticks > camera_path_points.size() - 2) {
 			this.stop();
 			return;
 		}
 
+		Location current_pos = camera_path_points.get(this.ticks);
+		Location next_point = camera_path_points.get(this.ticks + 1);
+
 		player.teleport(camera_path_points.get(this.ticks));
+		
+		player.setVelocity(calculateVelocity(current_pos, next_point));
 
 		this.ticks += 1;
 
