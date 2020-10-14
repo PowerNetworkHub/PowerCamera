@@ -33,8 +33,14 @@ public class PowerCamera extends JavaPlugin {
 	private CameraStorage config_cameras;
 	
 	public HashMap<Player, String> player_selected_camera = new HashMap<Player, String>(); // Selected camera name
-	public HashMap<Player, Boolean> player_camera_active = new HashMap<Player, Boolean>(); // When the player is viewing the camera (/pc start & /pc preview)
+	public HashMap<Player, CAMERA_MODE> player_camera_mode = new HashMap<Player, CAMERA_MODE>(); // When the player is viewing the camera (/pc start & /pc preview)
 	public Instant powercamera_start_time = Instant.now();
+	
+	public static enum CAMERA_MODE {
+		NONE,
+		PREVIEW,
+		VIEW
+	}
 
 	public void onEnable() {
 		pdf = this.getDescription();

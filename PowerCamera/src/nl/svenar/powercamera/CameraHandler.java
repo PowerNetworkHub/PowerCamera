@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+import nl.svenar.powercamera.PowerCamera.CAMERA_MODE;
+
 public class CameraHandler extends BukkitRunnable {
 
 	private int single_frame_duration_ms = 50;
@@ -78,14 +80,14 @@ public class CameraHandler extends BukkitRunnable {
 //		player.setInvisible(true);
 
 		runTaskTimer(this.plugin, 1L, 1L);
-//		this.plugin.player_camera_active.put(this.player, true);
+		this.plugin.player_camera_mode.put(this.player, CAMERA_MODE.VIEW);
 		player.teleport(camera_path_points.get(0));
 
 		this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
 	}
 
 	public void stop() {
-		plugin.player_camera_active.put(player, false);
+		plugin.player_camera_mode.put(player, CAMERA_MODE.NONE);
 		this.cancel();
 
 		player.teleport(previous_player_location);

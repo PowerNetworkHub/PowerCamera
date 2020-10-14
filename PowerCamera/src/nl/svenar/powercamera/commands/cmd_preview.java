@@ -22,7 +22,7 @@ public class cmd_preview extends PowerCameraCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender.hasPermission("powercamera.cmd.preview")) {
-			if (this.plugin.player_camera_active.get((Player) sender) == null || !this.plugin.player_camera_active.get((Player) sender)) {
+			if (this.plugin.player_camera_mode.get((Player) sender) == null || this.plugin.player_camera_mode.get((Player) sender) == PowerCamera.CAMERA_MODE.NONE) {
 				if (args.length == 1) {
 					String camera_name = plugin.player_selected_camera.get((Player) sender);
 					if (camera_name != null) {
@@ -46,7 +46,7 @@ public class cmd_preview extends PowerCameraCommand {
 						Location point = Util.deserializeLocation(camera_points.get(num));
 //						boolean previous_invisible = ((Player) sender).isInvisible();
 
-						plugin.player_camera_active.put((Player) sender, true);
+						plugin.player_camera_mode.put((Player) sender, PowerCamera.CAMERA_MODE.PREVIEW);
 						((Player) sender).setGameMode(GameMode.SPECTATOR);
 //						((Player) sender).setInvisible(true);
 						((Player) sender).teleport(point);
@@ -57,7 +57,7 @@ public class cmd_preview extends PowerCameraCommand {
 								((Player) sender).teleport(previous_player_location);
 								((Player) sender).setGameMode(previous_gamemode);
 //								((Player) sender).setInvisible(previous_invisible);
-								plugin.player_camera_active.put((Player) sender, false);
+								plugin.player_camera_mode.put((Player) sender, PowerCamera.CAMERA_MODE.NONE);
 								sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview ended!");
 							}
 

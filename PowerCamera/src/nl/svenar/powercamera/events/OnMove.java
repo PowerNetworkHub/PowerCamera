@@ -17,8 +17,8 @@ public class OnMove implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onPlayerMove(PlayerMoveEvent e) {
-		if (plugin.player_camera_active.get(e.getPlayer()) != null) {
-			if (plugin.player_camera_active.get(e.getPlayer())) {
+		if (plugin.player_camera_mode.get(e.getPlayer()) != null) {
+			if (plugin.player_camera_mode.get(e.getPlayer()) == PowerCamera.CAMERA_MODE.PREVIEW) {
 				e.setCancelled(true);
 			}
 		}
