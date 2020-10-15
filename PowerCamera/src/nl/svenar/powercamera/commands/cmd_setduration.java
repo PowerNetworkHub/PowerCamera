@@ -11,7 +11,7 @@ import nl.svenar.powercamera.Util;
 public class cmd_setduration extends PowerCameraCommand {
 
 	public cmd_setduration(PowerCamera plugin, String command_name) {
-		super(plugin, command_name);
+		super(plugin, command_name, COMMAND_EXECUTOR.PLAYER);
 	}
 
 	@Override

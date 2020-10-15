@@ -16,7 +16,7 @@ import nl.svenar.powercamera.Util;
 public class cmd_preview extends PowerCameraCommand {
 
 	public cmd_preview(PowerCamera plugin, String command_name) {
-		super(plugin, command_name);
+		super(plugin, command_name, COMMAND_EXECUTOR.PLAYER);
 	}
 
 	@Override

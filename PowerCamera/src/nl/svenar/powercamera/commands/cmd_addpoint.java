@@ -10,7 +10,7 @@ import nl.svenar.powercamera.PowerCamera;
 public class cmd_addpoint extends PowerCameraCommand {
 
 	public cmd_addpoint(PowerCamera plugin, String command_name) {
-		super(plugin, command_name);
+		super(plugin, command_name, COMMAND_EXECUTOR.PLAYER);
 	}
 
 	@Override

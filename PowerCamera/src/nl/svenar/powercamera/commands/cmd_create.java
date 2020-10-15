@@ -9,7 +9,7 @@ import nl.svenar.powercamera.PowerCamera;
 public class cmd_create extends PowerCameraCommand {
 
 	public cmd_create(PowerCamera plugin, String command_name) {
-		super(plugin, command_name);
+		super(plugin, command_name, COMMAND_EXECUTOR.ALL);
 	}
 
 	@Override
