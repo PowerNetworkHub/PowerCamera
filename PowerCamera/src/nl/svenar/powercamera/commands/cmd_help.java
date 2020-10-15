@@ -33,7 +33,8 @@ public class cmd_help extends PowerCameraCommand {
 				help_messages.add(tellrawbase.replaceAll("%arg%", "select <name>").replaceAll("%help%", "Select a camera path by name").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "preview <point_number>").replaceAll("%help%", "Preview a point on the selected camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "info").replaceAll("%help%", "Info about the currently selected camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
-				help_messages.add(tellrawbase.replaceAll("%arg%", "setduration <duration>").replaceAll("%help%", "Set the total duration of the current camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
+				help_messages
+						.add(tellrawbase.replaceAll("%arg%", "setduration <duration>").replaceAll("%help%", "Set the total duration of the current camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "start").replaceAll("%help%", "Run the camera").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "stats").replaceAll("%help%", "Show plugin stats").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 
@@ -49,7 +50,7 @@ public class cmd_help extends PowerCameraCommand {
 			}
 		} else {
 			sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "----------" + ChatColor.AQUA + plugin.getPluginDescriptionFile().getName() + ChatColor.DARK_AQUA + "----------" + ChatColor.BLUE + "===");
-			
+
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " create <name>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Create a new camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " remove <name>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Remove a camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " stats" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Show plugin stats");
@@ -60,7 +61,7 @@ public class cmd_help extends PowerCameraCommand {
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " info" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Info about the currently selected camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " setduration <duration>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Set the total duration of the current camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " start" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Run the camera");
-			
+
 			sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
 		}
 
