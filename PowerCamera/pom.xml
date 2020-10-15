@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>PowerCamera</groupId>
   <artifactId>PowerCamera</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <name>PowerCamera</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
