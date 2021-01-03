@@ -1,12 +1,23 @@
-# -------------------- PowerCamera --------------------
+# --------------------------------- PowerCamera ---------------------------------
 # Create cinematic views on your server
-# -----------------------------------------------------
-#                   point-preview-time
+# -------------------------------------------------------------------------------
+#                                point-preview-time
 # Set the preview duration of a point in seconds
-# -----------------------------------------------------
-#             on-new-player-join-camera-path
-# Show a camera path when a new player joins
-# -----------------------------------------------------
+# -------------------------------------------------------------------------------
+#                                     on-join
+# player-camera-path: The camera path to show when a new player joins
+# show-once: true, show the camera path once for new players
+# show-once: false, show the camera path always when a players joins
+# -------------------------------------------------------------------------------
+#                                 camera-effects
+# invisible: Set the player as invisible while the camera is active
+# spectator-mode: Set the player as spectator while the camera is active
+# -------------------------------------------------------------------------------
 
 point-preview-time: 5
-on-new-player-join-camera-path: ""
+on-join:
+  player-camera-path: ''
+  show-once: true
+camera-effects:
+  invisible: false
+  spectator-mode: true

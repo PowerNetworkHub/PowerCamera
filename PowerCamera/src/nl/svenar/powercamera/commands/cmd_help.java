@@ -55,7 +55,7 @@ public class cmd_help extends PowerCameraCommand {
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " remove <name>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Remove a camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " stats" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Show plugin stats");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " addpoint" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Add an point to a camera path");
-			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " delpoint [point_number]" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Remove an point from acamera path");
+			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " delpoint [point_number]" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Remove an point from a camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " select <name>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Select a camera path by name");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " preview <point_number>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Preview a point on the selected camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " info" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Info about the currently selected camera path");

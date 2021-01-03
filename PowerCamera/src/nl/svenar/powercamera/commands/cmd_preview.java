@@ -44,19 +44,23 @@ public class cmd_preview extends PowerCameraCommand {
 						GameMode previous_gamemode = ((Player) sender).getGameMode();
 						Location previous_player_location = ((Player) sender).getLocation();
 						Location point = Util.deserializeLocation(camera_points.get(num));
-//						boolean previous_invisible = ((Player) sender).isInvisible();
+						boolean previous_invisible = ((Player) sender).isInvisible();
 
 						plugin.player_camera_mode.put((Player) sender, PowerCamera.CAMERA_MODE.PREVIEW);
-						((Player) sender).setGameMode(GameMode.SPECTATOR);
-//						((Player) sender).setInvisible(true);
+						if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode"))
+							((Player) sender).setGameMode(GameMode.SPECTATOR);
+						if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible"))
+							((Player) sender).setInvisible(true);
 						((Player) sender).teleport(point);
 
 						new BukkitRunnable() {
 							@Override
 							public void run() {
 								((Player) sender).teleport(previous_player_location);
-								((Player) sender).setGameMode(previous_gamemode);
-//								((Player) sender).setInvisible(previous_invisible);
+								if (plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode"))
+									((Player) sender).setGameMode(previous_gamemode);
+								if (plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible"))
+									((Player) sender).setInvisible(previous_invisible);
 								plugin.player_camera_mode.put((Player) sender, PowerCamera.CAMERA_MODE.NONE);
 								sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview ended!");
 							}

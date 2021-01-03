@@ -32,7 +32,7 @@ public class Util {
 	}
 
 	public static int timeStringToSecondsConverter(String time_input) {
-		Matcher regex_int = Pattern.compile("^\\d+[^a-zA-Z]$").matcher(time_input);
+		Matcher regex_int = Pattern.compile("^\\d+[^a-zA-Z]{0,1}$").matcher(time_input);
 
 		Matcher regex_seconds = Pattern.compile("\\d+[sS]").matcher(time_input);
 		Matcher regex_minutes = Pattern.compile("\\d+[mM]").matcher(time_input);
