@@ -30,6 +30,8 @@ permissions:
         default: op
     powercamera.cmd.start:
         default: op
+    powercamera.cmd.stop:
+        default: op
     powercamera.cmd.stats:
         default: op
     powercamera.hidestartmessages:

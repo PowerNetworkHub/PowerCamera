@@ -21,7 +21,7 @@ public class cmd_start extends PowerCameraCommand {
 				if (this.plugin.player_camera_mode.get((Player) sender) == null || this.plugin.player_camera_mode.get((Player) sender) == PowerCamera.CAMERA_MODE.NONE) {
 					String camera_name = plugin.player_selected_camera.get((Player) sender);
 					if (camera_name != null) {
-						new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start();
+						this.plugin.player_camera_handler.put(((Player) sender).getUniqueId(), new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start());
 					} else {
 						sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
 						sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");

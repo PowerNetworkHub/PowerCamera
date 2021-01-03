@@ -75,7 +75,7 @@ public class CameraHandler extends BukkitRunnable {
 		return start + ((double) progress / (double) progress_max) * (end - start);
 	}
 
-	public void start() {
+	public CameraHandler start() {
 		this.previous_gamemode = this.player.getGameMode();
 		this.previous_player_location = this.player.getLocation();
 		this.previous_invisible = Util.isPlayerInvisible(this.player);
@@ -88,9 +88,10 @@ public class CameraHandler extends BukkitRunnable {
 		player.teleport(camera_path_points.get(0));
 
 		if (!this.player.hasPermission("powercamera.hidestartmessages") && !this.player.hasPermission("powercamera.hideallmessages")) this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
+		return this;
 	}
 
-	public void stop() {
+	public CameraHandler stop() {
 		plugin.player_camera_mode.put(player, CAMERA_MODE.NONE);
 		this.cancel();
 
@@ -99,6 +100,7 @@ public class CameraHandler extends BukkitRunnable {
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) player.setInvisible(previous_invisible);
 
 		if (!this.player.hasPermission("powercamera.hidestartmessages") && !this.player.hasPermission("powercamera.hideallmessages")) player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + camera_name + "' has ended!");
+		return this;
 	}
 	
 	private Vector calculateVelocity(Location start, Location end) {

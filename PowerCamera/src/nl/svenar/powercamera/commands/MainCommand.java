@@ -32,6 +32,7 @@ public class MainCommand implements CommandExecutor {
 		new cmd_info(plugin, "info");
 		new cmd_setduration(plugin, "setduration");
 		new cmd_start(plugin, "start");
+		new cmd_stop(plugin, "stop");
 		new cmd_stats(plugin, "stats");
 	}
 

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,6 +35,7 @@ public class PowerCamera extends JavaPlugin {
 
 	public HashMap<Player, String> player_selected_camera = new HashMap<Player, String>(); // Selected camera name
 	public HashMap<Player, CAMERA_MODE> player_camera_mode = new HashMap<Player, CAMERA_MODE>(); // When the player is viewing the camera (/pc start & /pc preview)
+	public HashMap<UUID, CameraHandler> player_camera_handler = new HashMap<UUID, CameraHandler>(); // When the player is viewing the camera (/pc start & /pc preview)
 	public Instant powercamera_start_time = Instant.now();
 
 	public static enum CAMERA_MODE {
