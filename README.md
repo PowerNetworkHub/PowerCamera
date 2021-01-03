@@ -1,4 +1,4 @@
-![alt text](https://www.spigotmc.org/attachments/powercameralogo-png.561391 "Logo")
+![Logo](https://svenar.nl/powercamera/img/PowerCameraLogoNoText.png)
 
 [![Docs](https://img.shields.io/badge/PowerCamera-Docs-blue)](https://svenar.nl/powercamera/#information)
 [![Discord](https://img.shields.io/discord/710833982413209620?color=blue&label=Discord&style=flat)](https://discord.gg/rAgBHMB)
