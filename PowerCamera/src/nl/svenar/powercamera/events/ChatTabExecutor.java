@@ -27,12 +27,14 @@ public class ChatTabExecutor implements TabCompleter {
 			commands_list.add("create");
 			commands_list.add("remove");
 			commands_list.add("addpoint");
+			commands_list.add("addcommand");
 			commands_list.add("delpoint");
 			commands_list.add("select");
 			commands_list.add("preview");
 			commands_list.add("info");
 			commands_list.add("setduration");
 			commands_list.add("start");
+			commands_list.add("stop");
 			commands_list.add("stats");
 
 			for (String command : commands_list) {

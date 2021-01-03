@@ -30,13 +30,27 @@ public class cmd_info extends PowerCameraCommand {
 					sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + camera_name);
 					sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + camera_duration + " seconds");
 					sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + camera_points.size() + ChatColor.DARK_GREEN + "):");
-					for (String point : camera_points) {
+					
+					int index = 0;
+					for (String raw_point : camera_points) {
+						index++;
+						
+						String type = raw_point.split(":", 2)[0];
+						String point = raw_point.split(":", 2)[1];
+						
 						String point_info = "";
-						Location point_location = Util.deserializeLocation(point);
+						point_info += "#" + index + " ";
+						point_info += type + ": ";
 
-						point_info += point_location.getWorld().getName();
-						point_info += ", (X: " + point_location.getBlockX() + ", Y: " + point_location.getBlockY() + ", Z: " + point_location.getBlockZ() + ")";
-						point_info += ", (Yaw: " + Math.round(point_location.getYaw()) + ", Pitch: " + Math.round(point_location.getPitch()) + ")";
+						if (type.equalsIgnoreCase("location")) {
+							Location point_location = Util.deserializeLocation(point);
+	
+							point_info += point_location.getWorld().getName();
+							point_info += ", (X: " + point_location.getBlockX() + ", Y: " + point_location.getBlockY() + ", Z: " + point_location.getBlockZ() + ")";
+							point_info += ", (Yaw: " + Math.round(point_location.getYaw()) + ", Pitch: " + Math.round(point_location.getPitch()) + ")";
+						} else {
+							point_info += point;
+						}
 
 						sender.sendMessage(ChatColor.DARK_GREEN + "- " + ChatColor.GREEN + point_info);
 					}

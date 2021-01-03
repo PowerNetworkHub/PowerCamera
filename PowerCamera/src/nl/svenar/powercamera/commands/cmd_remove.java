@@ -9,7 +9,7 @@ import nl.svenar.powercamera.PowerCamera;
 public class cmd_remove extends PowerCameraCommand {
 
 	public cmd_remove(PowerCamera plugin, String command_name) {
-		super(plugin, command_name, COMMAND_EXECUTOR.ALL);
+		super(plugin, command_name, COMMAND_EXECUTOR.PLAYER);
 	}
 
 	@Override

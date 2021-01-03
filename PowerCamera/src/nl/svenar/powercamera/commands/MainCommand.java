@@ -26,6 +26,7 @@ public class MainCommand implements CommandExecutor {
 		new cmd_create(plugin, "create");
 		new cmd_remove(plugin, "remove");
 		new cmd_addpoint(plugin, "addpoint");
+		new cmd_addcommand(plugin, "addcommand");
 		new cmd_delpoint(plugin, "delpoint");
 		new cmd_select(plugin, "select");
 		new cmd_preview(plugin, "preview");

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -92,6 +93,19 @@ public class PowerCamera extends JavaPlugin {
 			config_plugin.getConfig().set("on-join.player-camera-path", config_plugin.getConfig().getString("on-new-player-join-camera-path"));
 			config_plugin.getConfig().set("on-join.show-once", true);
 			config_plugin.getConfig().set("on-new-player-join-camera-path", null);
+		}
+		
+		for (String camera_name : config_cameras.getCameras()) {
+			List<String> points = config_cameras.getPoints(camera_name);
+			List<String> new_points = new ArrayList<String>();
+			for (String point : points) {
+				if (point.contains(":")) {
+					new_points.add(point);
+				} else {
+					new_points.add("location:" + point);
+				}
+			}
+			config_cameras.getConfig().set("cameras." + camera_name + ".points", new_points);
 		}
 
 		config_plugin.getConfig().set("version", getPluginDescriptionFile().getVersion());
