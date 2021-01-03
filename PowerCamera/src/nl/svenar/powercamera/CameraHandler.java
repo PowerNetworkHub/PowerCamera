@@ -26,7 +26,7 @@ public class CameraHandler extends BukkitRunnable {
 
 	private GameMode previous_gamemode;
 	private Location previous_player_location;
-//	private boolean previous_invisible;
+	private boolean previous_invisible;
 
 	public CameraHandler(PowerCamera plugin, Player player, String camera_name) {
 		this.plugin = plugin;
@@ -56,7 +56,11 @@ public class CameraHandler extends BukkitRunnable {
 	}
 
 	private Location translateLinear(Location point, Location point_next, int progress, int progress_max) {
-		Location new_point = new Location(point.getWorld(), point.getX(), point.getY(), point.getZ());
+		if (!point.getWorld().getUID().toString().equals(point_next.getWorld().getUID().toString())) {
+			return point_next;
+		}
+		
+		Location new_point = new Location(point_next.getWorld(), point.getX(), point.getY(), point.getZ());
 
 		new_point.setX(calculateProgress(point.getX(), point_next.getX(), progress, progress_max));
 		new_point.setY(calculateProgress(point.getY(), point_next.getY(), progress, progress_max));
@@ -74,16 +78,16 @@ public class CameraHandler extends BukkitRunnable {
 	public void start() {
 		this.previous_gamemode = this.player.getGameMode();
 		this.previous_player_location = this.player.getLocation();
-//		this.previous_invisible = this.player.isInvisible();
+		this.previous_invisible = this.player.isInvisible();
 
-		player.setGameMode(GameMode.SPECTATOR);
-//		player.setInvisible(true);
+		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) player.setGameMode(GameMode.SPECTATOR);
+		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) player.setInvisible(true);
 
 		runTaskTimer(this.plugin, 1L, 1L);
 		this.plugin.player_camera_mode.put(this.player, CAMERA_MODE.VIEW);
 		player.teleport(camera_path_points.get(0));
 
-		this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
+		if (!this.player.hasPermission("powercamera.hidestartmessages") && !this.player.hasPermission("powercamera.hideallmessages")) this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
 	}
 
 	public void stop() {
@@ -91,10 +95,10 @@ public class CameraHandler extends BukkitRunnable {
 		this.cancel();
 
 		player.teleport(previous_player_location);
-		player.setGameMode(previous_gamemode);
-//		player.setInvisible(previous_invisible);
+		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) player.setGameMode(previous_gamemode);
+		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) player.setInvisible(previous_invisible);
 
-		player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + camera_name + "' has ended!");
+		if (!this.player.hasPermission("powercamera.hidestartmessages") && !this.player.hasPermission("powercamera.hideallmessages")) player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + camera_name + "' has ended!");
 	}
 	
 	private Vector calculateVelocity(Location start, Location end) {

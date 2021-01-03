@@ -34,5 +34,3 @@ permissions:
         default: op
     powercamera.hidestartmessages:
         default: not op
-    powercamera.hideallmessages:
-        default: false
