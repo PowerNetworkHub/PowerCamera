@@ -78,7 +78,7 @@ public class CameraHandler extends BukkitRunnable {
 	public void start() {
 		this.previous_gamemode = this.player.getGameMode();
 		this.previous_player_location = this.player.getLocation();
-		this.previous_invisible = this.player.isInvisible();
+		this.previous_invisible = Util.isPlayerInvisible(this.player);
 
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) player.setGameMode(GameMode.SPECTATOR);
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) player.setInvisible(true);

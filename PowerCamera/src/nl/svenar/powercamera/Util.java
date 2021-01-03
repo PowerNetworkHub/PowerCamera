@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffectType;
 
 public class Util {
 
@@ -57,5 +59,13 @@ public class Util {
 		}
 
 		return seconds;
+	}
+
+	public static boolean isPlayerInvisible(Player player) {
+		try {
+			return player.isInvisible();
+		} catch (Exception e) {
+			return player.hasPotionEffect(PotionEffectType.INVISIBILITY);
+		}
 	}
 }
