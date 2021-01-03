@@ -85,16 +85,16 @@ public class PowerCamera extends JavaPlugin {
 
 		if (!config_plugin.getConfig().isSet("camera-effects.spectator-mode"))
 			config_plugin.getConfig().set("camera-effects.spectator-mode", true);
-		
+
 		if (!config_plugin.getConfig().isSet("camera-effects.invisible"))
 			config_plugin.getConfig().set("camera-effects.invisible", false);
-		
+
 		if (config_plugin.getConfig().isSet("on-new-player-join-camera-path")) {
 			config_plugin.getConfig().set("on-join.player-camera-path", config_plugin.getConfig().getString("on-new-player-join-camera-path"));
 			config_plugin.getConfig().set("on-join.show-once", true);
 			config_plugin.getConfig().set("on-new-player-join-camera-path", null);
 		}
-		
+
 		for (String camera_name : config_cameras.getCameras()) {
 			List<String> points = config_cameras.getPoints(camera_name);
 			List<String> new_points = new ArrayList<String>();

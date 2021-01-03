@@ -49,28 +49,28 @@ public class CameraHandler extends BukkitRunnable {
 
 			Location point = Util.deserializeLocation(raw_point);
 			Location point_next = Util.deserializeLocation(raw_point_next);
-			
 
 			this.camera_path_points.add(point);
 			for (int j = 0; j < max_points / (raw_camera_move_points.size() - 1) - 1; j++) {
 				this.camera_path_points.add(translateLinear(point, point_next, j, max_points / (raw_camera_move_points.size() - 1) - 1));
 			}
 		}
-		
+
 		int command_index = 0;
 		for (String raw_point : raw_camera_points) {
 			String type = raw_point.split(":", 2)[0];
 			String data = raw_point.split(":", 2)[1];
-			
+
 			if (type.equalsIgnoreCase("location")) {
 				command_index += 1;
 			}
-			
+
 			if (type.equalsIgnoreCase("command")) {
 				int index = ((command_index) * max_points / (raw_camera_move_points.size()) - 1);
 				index = command_index == 0 ? 0 : index - 1;
 				index = index < 0 ? 0 : index;
-				if (!this.camera_path_commands.containsKey(index)) this.camera_path_commands.put(index, new ArrayList<String>());
+				if (!this.camera_path_commands.containsKey(index))
+					this.camera_path_commands.put(index, new ArrayList<String>());
 				this.camera_path_commands.get(index).add(data);
 //				this.camera_path_commands.put(index, raw_camera_points.get(0));
 			}
@@ -163,7 +163,7 @@ public class CameraHandler extends BukkitRunnable {
 			Location next_point = camera_path_points.get(this.ticks + 1);
 
 			player.teleport(camera_path_points.get(this.ticks));
-			
+
 			if (camera_path_commands.containsKey(this.ticks)) {
 				for (String cmd : camera_path_commands.get(this.ticks)) {
 					String command = cmd.replaceAll("%player%", player.getName());
@@ -196,7 +196,7 @@ public class CameraHandler extends BukkitRunnable {
 
 		if (num > camera_points.size() - 1)
 			num = camera_points.size() - 1;
-		
+
 		if (!camera_points.get(num).split(":", 2)[0].equalsIgnoreCase("location")) {
 			player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Point " + (num + 1) + " is not a location!");
 			return this;

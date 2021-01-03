@@ -36,11 +36,11 @@ public class PluginConfig {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public FileConfiguration getConfig() {
-        return this.config;
-    }
-	
+		return this.config;
+	}
+
 	public void saveConfig() {
 		try {
 			this.config.save(this.configFile);
