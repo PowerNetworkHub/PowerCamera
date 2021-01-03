@@ -19,7 +19,7 @@ public class cmd_stop extends PowerCameraCommand {
 			if (sender.hasPermission("powercamera.cmd.stop")) {
 				if (this.plugin.player_camera_mode.get((Player) sender) != null && this.plugin.player_camera_mode.get((Player) sender) != PowerCamera.CAMERA_MODE.NONE && this.plugin.player_camera_handler.get(((Player) sender).getUniqueId()) != null) {
 					this.plugin.player_camera_handler.get(((Player) sender).getUniqueId()).stop();
-					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Current camera stopped");
+					if (!sender.hasPermission("powercamera.hidestartmessages")) sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Current camera stopped");
 				} else {
 					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera active!");
 				}

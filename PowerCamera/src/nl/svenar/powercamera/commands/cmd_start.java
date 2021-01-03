@@ -39,7 +39,7 @@ public class cmd_start extends PowerCameraCommand {
 			if (sender.hasPermission("powercamera.cmd.start." + camera_name.toLowerCase())) {
 				if (this.plugin.player_camera_mode.get((Player) sender) == null || this.plugin.player_camera_mode.get((Player) sender) == PowerCamera.CAMERA_MODE.NONE) {
 					if (this.plugin.getConfigCameras().camera_exists(camera_name)) {
-						new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start();
+						this.plugin.player_camera_handler.put(((Player) sender).getUniqueId(), new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start());
 					} else {
 						sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + camera_name + "' not found!");
 					}
