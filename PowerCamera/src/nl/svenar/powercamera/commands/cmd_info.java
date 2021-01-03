@@ -21,7 +21,7 @@ public class cmd_info extends PowerCameraCommand {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender.hasPermission("powercamera.cmd.info")) {
 			if (args.length == 0) {
-				String camera_name = plugin.player_selected_camera.get((Player) sender);
+				String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
 				if (camera_name != null) {
 					List<String> camera_points = plugin.getConfigCameras().getPoints(camera_name);
 					int camera_duration = plugin.getConfigCameras().getDuration(camera_name);

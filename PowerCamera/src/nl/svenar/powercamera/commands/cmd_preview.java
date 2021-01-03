@@ -18,9 +18,9 @@ public class cmd_preview extends PowerCameraCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (sender.hasPermission("powercamera.cmd.preview")) {
-			if (this.plugin.player_camera_mode.get((Player) sender) == null || this.plugin.player_camera_mode.get((Player) sender) == PowerCamera.CAMERA_MODE.NONE) {
+			if (this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == null || this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == PowerCamera.CAMERA_MODE.NONE) {
 				if (args.length == 1) {
-					String camera_name = plugin.player_selected_camera.get((Player) sender);
+					String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
 					if (camera_name != null) {
 						int preview_time = plugin.getConfigPlugin().getConfig().getInt("point-preview-time");
 

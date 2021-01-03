@@ -21,7 +21,7 @@ public class cmd_create extends PowerCameraCommand {
 				if (plugin.getConfigCameras().create_camera(camera_name)) {
 					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + camera_name + "' created!");
 //					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select this camera by doing: /" + commandLabel + " select " + camera_name + "");
-					plugin.player_selected_camera.put((Player) sender, plugin.getConfigCameras().get_camera_name_ignorecase(camera_name));
+					plugin.player_selected_camera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().get_camera_name_ignorecase(camera_name));
 					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + camera_name + "' selected!");
 				} else {
 					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + camera_name + "' already exists!");

@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -33,8 +32,8 @@ public class PowerCamera extends JavaPlugin {
 	private PluginConfig config_plugin;
 	private CameraStorage config_cameras;
 
-	public HashMap<Player, String> player_selected_camera = new HashMap<Player, String>(); // Selected camera name
-	public HashMap<Player, CAMERA_MODE> player_camera_mode = new HashMap<Player, CAMERA_MODE>(); // When the player is viewing the camera (/pc start & /pc preview)
+	public HashMap<UUID, String> player_selected_camera = new HashMap<UUID, String>(); // Selected camera name
+	public HashMap<UUID, CAMERA_MODE> player_camera_mode = new HashMap<UUID, CAMERA_MODE>(); // When the player is viewing the camera (/pc start & /pc preview)
 	public HashMap<UUID, CameraHandler> player_camera_handler = new HashMap<UUID, CameraHandler>(); // When the player is viewing the camera (/pc start & /pc preview)
 	public Instant powercamera_start_time = Instant.now();
 

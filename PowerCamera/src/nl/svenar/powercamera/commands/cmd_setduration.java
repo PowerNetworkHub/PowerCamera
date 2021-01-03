@@ -21,7 +21,7 @@ public class cmd_setduration extends PowerCameraCommand {
 				int duration = Util.timeStringToSecondsConverter(args[0]);
 
 				if (duration > 0) {
-					String camera_name = plugin.player_selected_camera.get((Player) sender);
+					String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
 					if (camera_name != null) {
 						plugin.getConfigCameras().setDuration(camera_name, duration);
 						sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera path duration set to: " + duration + " seconds on camera '" + camera_name + "'");

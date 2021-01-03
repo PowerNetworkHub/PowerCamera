@@ -22,7 +22,7 @@ public class cmd_delpoint extends PowerCameraCommand {
 					num = Integer.parseInt(args[0]) - 1;
 				}
 
-				String camera_name = plugin.player_selected_camera.get((Player) sender);
+				String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
 				if (camera_name != null) {
 					plugin.getConfigCameras().camera_removepoint(camera_name, num);
 					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point " + num + " removed from camera '" + camera_name + "'!");
