@@ -5,9 +5,10 @@
 # Set the preview duration of a point in seconds
 # -------------------------------------------------------------------------------
 #                                     on-join
-# player-camera-path: The camera path to show when a new player joins
-# show-once: true, show the camera path once for new players
-# show-once: false, show the camera path always when a players joins
+# random-player-camera-path: Choose a random camera path to show when a new player joins
+# show-once: <true/false>
+#   true, show the camera path once for new players
+#   false, show the camera path always when a players joins
 # -------------------------------------------------------------------------------
 #                                 camera-effects
 # invisible: Set the player as invisible while the camera is active
@@ -16,7 +17,7 @@
 
 point-preview-time: 5
 on-join:
-  player-camera-path: ''
+  random-player-camera-path: []
   show-once: true
 camera-effects:
   invisible: false
