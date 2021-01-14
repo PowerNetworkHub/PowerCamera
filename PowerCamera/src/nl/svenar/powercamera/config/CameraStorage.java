@@ -95,11 +95,11 @@ public class CameraStorage {
 		return camera_name;
 	}
 
-	public void camera_addpoint(Location location, String camera_name) {
+	public void camera_addpoint(Location location, String easing, String camera_name) {
 		if (!camera_exists(camera_name))
 			return;
 
-		String new_point = "location:" + Util.serializeLocation(location);
+		String new_point = "location:" + easing + ":" + Util.serializeLocation(location);
 
 		List<String> camera_points = getConfig().getStringList("cameras." + get_camera_name_ignorecase(camera_name) + ".points");
 		camera_points.add(new_point);

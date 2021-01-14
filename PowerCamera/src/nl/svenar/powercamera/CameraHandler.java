@@ -43,23 +43,36 @@ public class CameraHandler extends BukkitRunnable {
 		List<String> raw_camera_points = this.plugin.getConfigCameras().getPoints(this.camera_name);
 		List<String> raw_camera_move_points = getMovementPoints(raw_camera_points);
 
-		for (int i = 0; i < raw_camera_move_points.size() - 1; i++) {
-			String raw_point = raw_camera_move_points.get(i);
-			String raw_point_next = raw_camera_move_points.get(i + 1);
+		if (raw_camera_move_points.size() - 1 == 0) {
+			for (int j = 0; j < max_points - 1; j++) {
+				this.camera_path_points.add(Util.deserializeLocation(raw_camera_move_points.get(0).split(":", 2)[1]));
+			}
+		} else {
+			for (int i = 0; i < raw_camera_move_points.size() - 1; i++) {
+				String raw_point = raw_camera_move_points.get(i).split(":", 2)[1];
+				String raw_point_next = raw_camera_move_points.get(i + 1).split(":", 2)[1];
+				String easing = raw_camera_move_points.get(i + 1).split(":", 2)[0];
 
-			Location point = Util.deserializeLocation(raw_point);
-			Location point_next = Util.deserializeLocation(raw_point_next);
+				Location point = Util.deserializeLocation(raw_point);
+				Location point_next = Util.deserializeLocation(raw_point_next);
 
-			this.camera_path_points.add(point);
-			for (int j = 0; j < max_points / (raw_camera_move_points.size() - 1) - 1; j++) {
-				this.camera_path_points.add(translateLinear(point, point_next, j, max_points / (raw_camera_move_points.size() - 1) - 1));
+				this.camera_path_points.add(point);
+				for (int j = 0; j < max_points / (raw_camera_move_points.size() - 1) - 1; j++) {
+					if (easing.equalsIgnoreCase("linear")) {
+						this.camera_path_points.add(translateLinear(point, point_next, j, max_points / (raw_camera_move_points.size() - 1) - 1));
+					}
+					if (easing.equalsIgnoreCase("teleport")) {
+						this.camera_path_points.add(point_next);
+					}
+				}
 			}
 		}
 
 		int command_index = 0;
 		for (String raw_point : raw_camera_points) {
-			String type = raw_point.split(":", 2)[0];
-			String data = raw_point.split(":", 2)[1];
+			String type = raw_point.split(":", 3)[0];
+//			String easing = raw_point.split(":", 3)[1];
+			String data = raw_point.split(":", (type == "location" ? 3 : 2))[type == "location" ? 2 : 1];
 
 			if (type.equalsIgnoreCase("location")) {
 				command_index += 1;
@@ -122,7 +135,9 @@ public class CameraHandler extends BukkitRunnable {
 
 		this.plugin.player_camera_mode.put(this.player.getUniqueId(), CAMERA_MODE.VIEW);
 		runTaskTimer(this.plugin, 1L, 1L);
-		player.teleport(camera_path_points.get(0));
+		if (camera_path_points.size() > 0) {
+			player.teleport(camera_path_points.get(0));
+		}
 
 		if (!this.player.hasPermission("powercamera.hidestartmessages"))
 			this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
@@ -207,7 +222,7 @@ public class CameraHandler extends BukkitRunnable {
 
 		previous_gamemode = player.getGameMode();
 		previous_player_location = player.getLocation();
-		Location point = Util.deserializeLocation(camera_points.get(num).split(":", 2)[1]);
+		Location point = Util.deserializeLocation(camera_points.get(num).split(":", 3)[2]);
 		previous_invisible = player.isInvisible();
 
 		plugin.player_camera_mode.put(player.getUniqueId(), PowerCamera.CAMERA_MODE.PREVIEW);
