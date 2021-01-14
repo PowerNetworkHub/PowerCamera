@@ -35,12 +35,13 @@ public class cmd_info extends PowerCameraCommand {
 					for (String raw_point : camera_points) {
 						index++;
 						
-						String type = raw_point.split(":", 2)[0];
-						String point = raw_point.split(":", 2)[1];
+						String type = raw_point.split(":", 3)[0];
+						String easing = raw_point.split(":", 3)[1];
+						String point = raw_point.split(":", 3)[2];
 						
 						String point_info = "";
 						point_info += "#" + index + " ";
-						point_info += type + ": ";
+						point_info += type + " (" + easing + "): ";
 
 						if (type.equalsIgnoreCase("location")) {
 							Location point_location = Util.deserializeLocation(point);
