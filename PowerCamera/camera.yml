@@ -1,6 +1,33 @@
 cameras:
-   Dummy:
-      duration: 10
-      points: []
+    demo:
+        duration: 6
+        points:
+        - 'command:title %player% times 20 60 20'
+        - 'command:title %player% subtitle {"text":"https://svenar.nl/powercamera","color":"#ED6E13"}'
+        - 'command:title %player% title ["",{"text":"P","color":"#008CD8"},{"text":"ower","color":"#35A6E2"},{"text":"C","color":"#008CD8"},{"text":"amera","color":"#35A6E2"}]'
+        - 'command:fill 22 253 257 26 255 257 minecraft:glowstone'
+        - 'command:fill 22 253 256 26 255 256 minecraft:red_wool'
+        - 'command:fill 22 253 255 26 255 255 minecraft:orange_wool'
+        - 'command:fill 22 253 254 26 255 254 minecraft:yellow_wool'
+        - 'command:fill 22 253 253 26 255 253 minecraft:green_wool'
+        - 'command:fill 22 253 252 26 255 252 minecraft:blue_wool'
+        - 'command:fill 22 253 251 26 255 251 minecraft:purple_wool'
+        - 'command:fill 22 253 250 26 255 250 minecraft:magenta_wool'
+        - 'command:fill 22 253 249 26 255 249 minecraft:red_wool'
+        - 'command:fill 22 253 248 26 255 248 minecraft:orange_wool'
+        - 'command:fill 22 253 247 26 255 247 minecraft:yellow_wool'
+        - 'command:fill 22 253 246 26 255 246 minecraft:green_wool'
+        - 'command:fill 22 253 245 26 255 245 minecraft:blue_wool'
+        - 'command:fill 22 253 244 26 255 244 minecraft:purple_wool'
+        - 'command:fill 22 253 243 26 255 243 minecraft:magenta_wool'
+        - 'command:fill 22 253 242 26 255 242 minecraft:black_wool'
+        - 'command:fill 23 254 256 25 254 243 minecraft:lantern'
+        - 'command:fill 24 254 256 24 254 243 minecraft:air'
+        - 'location:linear:29db9147-9383-4fc9-a169-3ad2ae98c310;24.418613918553817;253.0;256.5255410214952;180.44563;25.79979'
+        - 'command:fill 22 254 256 26 254 242 minecraft:cyan_wool'
+        - 'command:fill 23 254 256 25 254 243 minecraft:lantern'
+        - 'command:fill 24 254 256 24 254 243 minecraft:air'
+        - 'location:linear:29db9147-9383-4fc9-a169-3ad2ae98c310;24.410196166175623;253.0;251.43776564759258;179.69543;11.999997'
+        - 'command:fill 22 253 257 26 255 242 minecraft:air'
 
 players: []
