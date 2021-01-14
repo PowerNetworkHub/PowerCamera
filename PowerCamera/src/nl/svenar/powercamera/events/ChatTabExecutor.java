@@ -3,9 +3,11 @@ package nl.svenar.powercamera.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 
 import nl.svenar.powercamera.PowerCamera;
 
@@ -34,6 +36,7 @@ public class ChatTabExecutor implements TabCompleter {
 			commands_list.add("info");
 			commands_list.add("setduration");
 			commands_list.add("start");
+			commands_list.add("startother");
 			commands_list.add("stop");
 			commands_list.add("stats");
 
@@ -45,6 +48,20 @@ public class ChatTabExecutor implements TabCompleter {
 
 		if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("start")) {
+				for (String camera_name : this.plugin.getConfigCameras().getCameras()) {
+					list.add(camera_name);
+				}
+			}
+			
+			if (args[0].equalsIgnoreCase("startother")) {
+				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+					list.add(player.getName());
+				}
+			}
+		}
+		
+		if (args.length == 3) {
+			if (args[0].equalsIgnoreCase("startother")) {
 				for (String camera_name : this.plugin.getConfigCameras().getCameras()) {
 					list.add(camera_name);
 				}

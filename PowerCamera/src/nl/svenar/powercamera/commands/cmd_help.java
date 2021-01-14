@@ -34,9 +34,9 @@ public class cmd_help extends PowerCameraCommand {
 				help_messages.add(tellrawbase.replaceAll("%arg%", "select <name>").replaceAll("%help%", "Select a camera path by name").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "preview <point_number>").replaceAll("%help%", "Preview a point on the selected camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "info").replaceAll("%help%", "Info about the currently selected camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
-				help_messages
-						.add(tellrawbase.replaceAll("%arg%", "setduration <duration>").replaceAll("%help%", "Set the total duration of the current camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
-				help_messages.add(tellrawbase.replaceAll("%arg%", "start").replaceAll("%help%", "Run the camera").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
+				help_messages.add(tellrawbase.replaceAll("%arg%", "setduration <duration>").replaceAll("%help%", "Set the total duration of the current camera path").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
+				help_messages.add(tellrawbase.replaceAll("%arg%", "start [cameraname]").replaceAll("%help%", "Run the camera").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
+				help_messages.add(tellrawbase.replaceAll("%arg%", "startother <playername> <cameraname>").replaceAll("%help%", "Run a camera for a different player").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "stop").replaceAll("%help%", "Stop the camera").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 				help_messages.add(tellrawbase.replaceAll("%arg%", "stats").replaceAll("%help%", "Show plugin stats").replaceAll("%player%", sender.getName()).replaceAll("%cmd%", commandLabel));
 
@@ -62,8 +62,9 @@ public class cmd_help extends PowerCameraCommand {
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " preview <point_number>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Preview a point on the selected camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " info" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Info about the currently selected camera path");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " setduration <duration>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Set the total duration of the current camera path");
-			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " start" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Run the camera");
+			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " start [cameraname]" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Run the camera");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " stop" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Stop the camera");
+			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " startother <playername> <cameraname>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Run a camera for a different player");
 			sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.GREEN + "/" + commandLabel + " stats" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN + "Show plugin stats");
 
 			sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
