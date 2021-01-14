@@ -90,7 +90,9 @@ public class PowerCamera extends JavaPlugin {
 			config_plugin.getConfig().set("camera-effects.invisible", false);
 
 		if (config_plugin.getConfig().isSet("on-new-player-join-camera-path")) {
-			config_plugin.getConfig().set("on-join.player-camera-path", config_plugin.getConfig().getString("on-new-player-join-camera-path"));
+			ArrayList<String> list = new ArrayList<>();
+			list.add(config_plugin.getConfig().getString("on-new-player-join-camera-path"));
+			config_plugin.getConfig().set("on-join.random-player-camera-path", list);
 			config_plugin.getConfig().set("on-join.show-once", true);
 			config_plugin.getConfig().set("on-new-player-join-camera-path", null);
 		}
@@ -99,11 +101,20 @@ public class PowerCamera extends JavaPlugin {
 			List<String> points = config_cameras.getPoints(camera_name);
 			List<String> new_points = new ArrayList<String>();
 			for (String point : points) {
-				if (point.contains(":")) {
-					new_points.add(point);
-				} else {
-					new_points.add("location:" + point);
+				if (!point.startsWith("location:") && !point.startsWith("command:")) {
+					point = "location:" + point;
 				}
+				
+				if (point.startsWith("location:") && !(point.startsWith("location:linear:") || point.startsWith("location:teleport:"))) {
+					point = point.replaceFirst("location:", "location:linear:");
+				}
+				
+				new_points.add(point);
+//				if (point.contains(":")) {
+//					new_points.add(point);
+//				} else {
+//					new_points.add("location:" + point);
+//				}
 			}
 			config_cameras.getConfig().set("cameras." + camera_name + ".points", new_points);
 		}
