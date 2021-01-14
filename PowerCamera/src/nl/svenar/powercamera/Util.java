@@ -29,6 +29,9 @@ public class Util {
 		float pitch = Float.parseFloat(input_split[5]);
 
 		World world = Bukkit.getServer().getWorld(world_uid);
+		if (world == null) {
+			world = Bukkit.getServer().getWorlds().get(0);
+		}
 
 		return new Location(world, x, y, z, yaw, pitch);
 	}
