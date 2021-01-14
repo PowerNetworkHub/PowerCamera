@@ -1,5 +1,5 @@
 name: PowerCamera
-version: 0.4
+version: 0.5
 main: nl.svenar.powercamera.PowerCamera
 api-version: 1.13
 description: "Power Camera: Create awesome cinematic videos"
@@ -30,9 +30,13 @@ permissions:
         default: op
     powercamera.cmd.start:
         default: op
+    powercamera.cmd.startother:
+        default: op
     powercamera.cmd.stop:
         default: op
     powercamera.cmd.stats:
         default: op
     powercamera.hidestartmessages:
         default: not op
+    powercamera.bypass.joincamera:
+        default: false
