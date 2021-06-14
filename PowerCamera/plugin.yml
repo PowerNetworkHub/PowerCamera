@@ -1,5 +1,5 @@
 name: PowerCamera
-version: 0.5
+version: 0.6
 main: nl.svenar.powercamera.PowerCamera
 api-version: 1.13
 description: "Power Camera: Create awesome cinematic videos"

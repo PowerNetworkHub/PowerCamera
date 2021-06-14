@@ -36,6 +36,7 @@ public class MainCommand implements CommandExecutor {
 		new cmd_startother(plugin, "startother");
 		new cmd_stop(plugin, "stop");
 		new cmd_stats(plugin, "stats");
+		new cmd_invisible(plugin, "invisible");
 	}
 
 	@Override

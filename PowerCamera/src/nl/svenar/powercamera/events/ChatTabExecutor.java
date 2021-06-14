@@ -39,6 +39,7 @@ public class ChatTabExecutor implements TabCompleter {
 			commands_list.add("startother");
 			commands_list.add("stop");
 			commands_list.add("stats");
+			commands_list.add("invisible");
 
 			for (String command : commands_list) {
 				if (command.toLowerCase().contains(args[0].toLowerCase()))
@@ -51,6 +52,11 @@ public class ChatTabExecutor implements TabCompleter {
 				for (String camera_name : this.plugin.getConfigCameras().getCameras()) {
 					list.add(camera_name);
 				}
+			}
+
+			if (args[0].equalsIgnoreCase("invisible")) {
+				list.add("true");
+				list.add("false");
 			}
 			
 			if (args[0].equalsIgnoreCase("startother")) {

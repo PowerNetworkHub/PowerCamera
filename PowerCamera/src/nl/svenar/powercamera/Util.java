@@ -3,6 +3,7 @@ package nl.svenar.powercamera;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.NoSuchMethodError;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -67,7 +68,7 @@ public class Util {
 	public static boolean isPlayerInvisible(Player player) {
 		try {
 			return player.isInvisible();
-		} catch (Exception e) {
+		} catch (NoSuchMethodError e) {
 			return player.hasPotionEffect(PotionEffectType.INVISIBILITY);
 		}
 	}
