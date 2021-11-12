@@ -103,6 +103,10 @@ public class CameraHandler extends BukkitRunnable {
 		return output;
 	}
 
+	private double normalizeYaw(double yaw, boolean normalize) {
+		return normalize && yaw > 180 ? (yaw - 360) : yaw;
+	}
+
 	private Location translateLinear(Location point, Location point_next, int progress, int progress_max) {
 		if (!point.getWorld().getUID().toString().equals(point_next.getWorld().getUID().toString())) {
 			return point_next;
@@ -113,6 +117,13 @@ public class CameraHandler extends BukkitRunnable {
 		new_point.setX(calculateProgress(point.getX(), point_next.getX(), progress, progress_max));
 		new_point.setY(calculateProgress(point.getY(), point_next.getY(), progress, progress_max));
 		new_point.setZ(calculateProgress(point.getZ(), point_next.getZ(), progress, progress_max));
+
+		boolean normalizeYaw = Math.abs(point.getYaw() - point_next.getYaw()) > 180;
+		new_point.setYaw((float) calculateProgress(
+				normalizeYaw(point.getYaw(), normalizeYaw),
+				normalizeYaw(point_next.getYaw(), normalizeYaw),
+				progress,
+				progress_max));
 		new_point.setYaw((float) calculateProgress(point.getYaw(), point_next.getYaw(), progress, progress_max));
 		new_point.setPitch((float) calculateProgress(point.getPitch(), point_next.getPitch(), progress, progress_max));
 
