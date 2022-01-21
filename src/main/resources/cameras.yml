@@ -1,0 +1,36 @@
+cameras:
+    testcam:
+        return-to-origin: true
+        points:
+            - point:
+                type: MOVE
+                easing: LINEAR
+                duration: 60
+                location:
+                    world: world
+                    x: 10
+                    y: 10
+                    z: 10
+                rotation:
+                    yaw: 0
+                    pitch: 0
+                commands:
+                    start: []
+                    end: []
+            - point:
+                type: TELEPORT
+                easing: NONE
+                duration: 10
+                location:
+                    world: world
+                    x: 1
+                    y: 2
+                    z: 3
+                rotation:
+                    yaw: 4
+                    pitch: 5
+                commands:
+                    start: []
+                    end: []
+
+players: []

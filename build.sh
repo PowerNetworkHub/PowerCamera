@@ -1,0 +1,1 @@
+mvn release:update-versions -q -DautoVersionSubmodules=true && mvn

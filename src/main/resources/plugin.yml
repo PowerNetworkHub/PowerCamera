@@ -1,0 +1,11 @@
+name: ${project.name}
+version: ${project.version}
+main: nl.svenar.powercamera.PowerCamera
+api-version: 1.13
+description: "Create awesome cinematic videos"
+authors: [svenar_nl]
+website: 'http://dev.bukkit.org/bukkit-plugins/powercamera/'
+commands:
+    powercamera:
+        description: Main command
+        aliases: [powercam, pcam, pc, cam]
