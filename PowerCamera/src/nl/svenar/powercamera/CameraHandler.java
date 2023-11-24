@@ -137,7 +137,7 @@ public class CameraHandler extends BukkitRunnable {
 
         this.plugin.playerCameraMode.put(this.player.getUniqueId(), CameraMode.VIEW);
         runTaskTimer(this.plugin, 1L, 1L);
-        if (cameraPathPoints.size() > 0) {
+        if (!cameraPathPoints.isEmpty()) {
             player.teleport(cameraPathPoints.get(0));
         }
 
@@ -187,7 +187,7 @@ public class CameraHandler extends BukkitRunnable {
 
             if (cameraPathCommands.containsKey(this.ticks)) {
                 for (String cmd : cameraPathCommands.get(this.ticks)) {
-                    String command = cmd.replaceAll("%player%", player.getName());
+                    String command = cmd.replace("%player%", player.getName());
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                 }
             }

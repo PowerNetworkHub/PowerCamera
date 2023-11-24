@@ -3,6 +3,7 @@ package nl.svenar.powercamera.config;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -152,7 +153,7 @@ public class CameraStorage {
 
     public List<String> getPoints(String cameraName) {
         if (!cameraExists(cameraName)) {
-            return null;
+            return Collections.emptyList();
         }
 
         return getConfig().getStringList("cameras." + getCameraNameIgnorecase(cameraName) + ".points");

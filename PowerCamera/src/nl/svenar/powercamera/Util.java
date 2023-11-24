@@ -9,9 +9,12 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-public class Util {
+public final class Util {
 
-    private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]{0,1}$");
+    private Util() {
+    }
+
+    private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]?$");
     private static final Pattern REGEX_SECONDS = Pattern.compile("\\d+[sS]");
     private static final Pattern REGEX_MINUTES = Pattern.compile("\\d+[mM]");
     private static final Pattern REGEX_HOURS = Pattern.compile("\\d+[hH]");

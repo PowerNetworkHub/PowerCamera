@@ -2,6 +2,7 @@ package nl.svenar.powercamera.events;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import nl.svenar.powercamera.CameraHandler;
 import nl.svenar.powercamera.PowerCamera;
 import org.bukkit.event.EventHandler;
@@ -24,13 +25,12 @@ public class PlayerJoinHandler implements Listener {
                 if (this.plugin.getConfigCameras().addPlayer(e.getPlayer().getUniqueId()) || !this.plugin.getConfigPlugin().getConfig()
                     .getBoolean("on-join.show-once")) {
                     List<String> joinCameras = this.plugin.getConfigPlugin().getConfig().getStringList("on-join.random-player-camera-path");
-                    Random rand = new Random();
+                    Random rand = ThreadLocalRandom.current();
                     String cameraName = joinCameras.get(rand.nextInt(joinCameras.size()));
-                    if (cameraName.length() > 0) {
-                        if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
+                    if (!cameraName.isEmpty() && (this.plugin.getConfigCameras().cameraExists(cameraName))) {
                             this.plugin.playerCameraHandler.put(e.getPlayer().getUniqueId(),
                                 new CameraHandler(plugin, e.getPlayer(), cameraName).generatePath().start());
-                        }
+
                     }
                 }
             }

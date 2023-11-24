@@ -33,9 +33,7 @@ public class ChatTabExecutor implements TabCompleter {
 
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("select") || args[0].equalsIgnoreCase("start")) {
-                for (String cameraName : this.plugin.getConfigCameras().getCameras()) {
-                    list.add(cameraName);
-                }
+                list.addAll(this.plugin.getConfigCameras().getCameras());
             }
 
             if (args[0].equalsIgnoreCase("invisible")) {

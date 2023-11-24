@@ -29,7 +29,7 @@ import org.bukkit.command.CommandSender;
 
 public class MainCommand implements CommandExecutor {
 
-    private final Map<String, PowerCameraCommand> powercameraCommands = new HashMap<String, PowerCameraCommand>();
+    private final Map<String, PowerCameraCommand> powercameraCommands = new HashMap<>();
 
     private final PowerCamera plugin;
 
