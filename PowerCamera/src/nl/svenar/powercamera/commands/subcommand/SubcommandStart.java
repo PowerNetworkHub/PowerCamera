@@ -5,6 +5,7 @@ import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import nl.svenar.powercamera.data.CameraMode;
+import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,13 +19,15 @@ public class SubcommandStart extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player = (Player) sender;
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
+
         if (args.length == 0) {
             if (sender.hasPermission("powercamera.cmd.start")) {
-                if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
-                    || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
-                    String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                if (cameraData.getCameraMode() == CameraMode.NONE) {
+                    String cameraName = cameraData.getSelectedCameraId();
                     if (cameraName != null) {
-                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
+                        cameraData.setCameraHandler(
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
@@ -41,10 +44,9 @@ public class SubcommandStart extends PowerCameraCommand {
             String cameraName = args[0];
 
             if (sender.hasPermission("powercamera.cmd.start." + cameraName.toLowerCase())) {
-                if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
-                    || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
+                if (cameraData.getCameraMode() == CameraMode.NONE) {
                     if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
+                        cameraData.setCameraHandler(
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + cameraName + "' not found!");

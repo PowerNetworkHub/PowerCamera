@@ -5,6 +5,7 @@ import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import nl.svenar.powercamera.data.CameraMode;
+import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,10 +27,11 @@ public class SubcommandStartOther extends PowerCameraCommand {
                 Player targetPlayer = Bukkit.getPlayer(targetName);
 
                 if (targetPlayer != null) {
-                    if (this.plugin.playerCameraMode.get(targetPlayer.getUniqueId()) == null
-                        || this.plugin.playerCameraMode.get(targetPlayer.getUniqueId()) == CameraMode.NONE) {
+                    PlayerCameraData cameraData = plugin.getPlayerData().get(targetPlayer);
+
+                    if (cameraData.getCameraMode() == CameraMode.NONE) {
                         if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                            this.plugin.playerCameraHandler.put(targetPlayer.getUniqueId(),
+                           cameraData.setCameraHandler(
                                 new CameraHandler(plugin, targetPlayer, cameraName).generatePath().start());
                             sender.sendMessage(
                                 plugin.getPluginChatPrefix() + ChatColor.GREEN + "Playing '" + cameraName + "' on player: " + targetPlayer.getName());

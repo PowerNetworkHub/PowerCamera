@@ -6,6 +6,7 @@ import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import nl.svenar.powercamera.data.CameraMode;
+import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -19,17 +20,19 @@ public class SubcommandPreview extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player = (Player) sender;
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
+
         if (sender.hasPermission("powercamera.cmd.preview")) {
-            if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
-                || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
+            if (cameraData.getCameraMode() == CameraMode.NONE) {
                 if (args.length == 1) {
-                    String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                    String cameraName = cameraData.getSelectedCameraId();
                     if (cameraName != null) {
                         int previewTime = plugin.getConfigPlugin().getConfig().getInt("point-preview-time");
 
                         int num = Integer.parseInt(args[0]) - 1;
 
-                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
+                        cameraData.setCameraHandler(
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().preview((Player) sender, num, previewTime));
 
                     } else {

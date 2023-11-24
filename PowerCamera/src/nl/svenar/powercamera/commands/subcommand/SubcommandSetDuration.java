@@ -4,6 +4,7 @@ import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.Util;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
+import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,12 +18,16 @@ public class SubcommandSetDuration extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player = (Player) sender;
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
+
+
         if (sender.hasPermission("powercamera.cmd.setduration")) {
             if (args.length == 1) {
                 int duration = Util.timeStringToSecondsConverter(args[0]);
 
                 if (duration > 0) {
-                    String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                    String cameraName = cameraData.getSelectedCameraId();
                     if (cameraName != null) {
                         plugin.getConfigCameras().setDuration(cameraName, duration);
                         sender.sendMessage(

@@ -15,6 +15,7 @@ import nl.svenar.powercamera.events.ChatTabExecutor;
 import nl.svenar.powercamera.events.PlayerJoinHandler;
 import nl.svenar.powercamera.events.PlayerMoveHandler;
 import nl.svenar.powercamera.metrics.Metrics;
+import nl.svenar.powercamera.tracker.PlayerCameraDataTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -25,9 +26,11 @@ public class PowerCamera extends JavaPlugin {
     public static final String WEBSITE_URL = "https://svenar.nl/powercamera";
     public static final List<String> DONATION_URLS = Arrays.asList("https://ko-fi.com/svenar", "https://patreon.com/svenar");
 
-    public Map<UUID, String> playerSelectedCamera = new HashMap<>(); // Selected camera name
-    public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
-    public Map<UUID, CameraHandler> playerCameraHandler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
+    private PlayerCameraDataTracker playerCameraDataTracker;
+
+    // public Map<UUID, String> playerSelectedCamera = new HashMap<>(); // Selected camera name
+    // public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
+    // public Map<UUID, CameraHandler> playerCameraHandler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
     public Instant powercameraStartTime = Instant.now();
     private PluginDescriptionFile pdf;
     private String pluginChatPrefix = ChatColor.BLACK + "[" + ChatColor.AQUA + "%pluginName%" + ChatColor.BLACK + "] ";
@@ -40,6 +43,8 @@ public class PowerCamera extends JavaPlugin {
         pdf = this.getDescription();
 
         pluginChatPrefix = pluginChatPrefix.replace("%pluginName%", pdf.getName());
+
+        this.playerCameraDataTracker = new PlayerCameraDataTracker();
 
         registerListeners();
         registerCommand();
@@ -141,5 +146,9 @@ public class PowerCamera extends JavaPlugin {
 
     public MainCommand getMainCommand() {
         return mainCommand;
+    }
+
+    public PlayerCameraDataTracker getPlayerData() {
+        return playerCameraDataTracker;
     }
 }

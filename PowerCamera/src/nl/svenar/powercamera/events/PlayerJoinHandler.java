@@ -5,10 +5,12 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import nl.svenar.powercamera.CameraHandler;
 import nl.svenar.powercamera.PowerCamera;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerJoinHandler implements Listener {
 
@@ -19,32 +21,48 @@ public class PlayerJoinHandler implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        try {
-            if (!e.getPlayer().hasPermission("powercamera.bypass.joincamera")) {
-                if (this.plugin.getConfigCameras().addPlayer(e.getPlayer().getUniqueId()) || !this.plugin.getConfigPlugin().getConfig()
-                    .getBoolean("on-join.show-once")) {
-                    List<String> joinCameras = this.plugin.getConfigPlugin().getConfig().getStringList("on-join.random-player-camera-path");
-                    Random rand = ThreadLocalRandom.current();
-                    String cameraName = joinCameras.get(rand.nextInt(joinCameras.size()));
-                    if (!cameraName.isEmpty() && (this.plugin.getConfigCameras().cameraExists(cameraName))) {
-                            this.plugin.playerCameraHandler.put(e.getPlayer().getUniqueId(),
-                                new CameraHandler(plugin, e.getPlayer(), cameraName).generatePath().start());
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
 
-                    }
-                }
+        plugin.getPlayerData().handlePlayerJoin(player);
+
+        try {
+            if (player.hasPermission("powercamera.bypass.joincamera")) {
+                return;
             }
+
+            if (!(this.plugin.getConfigCameras().addPlayer(player.getUniqueId()) || !this.plugin.getConfigPlugin().getConfig()
+                .getBoolean("on-join.show-once"))) {
+                return;
+            }
+
+            List<String> joinCameras = this.plugin.getConfigPlugin().getConfig().getStringList("on-join.random-player-camera-path");
+            Random rand = ThreadLocalRandom.current();
+            String cameraName = joinCameras.get(rand.nextInt(joinCameras.size()));
+
+            if (!cameraName.isEmpty() && (this.plugin.getConfigCameras().cameraExists(cameraName))) {
+                CameraHandler cameraHandler = new CameraHandler(plugin, player, cameraName).generatePath().start();
+                plugin.getPlayerData().get(player).setCameraHandler(cameraHandler);
+            }
+
+
         } catch (Exception ex) {
             // Ignore
         }
 
         try {
-            if (e.getPlayer().isInvisible()) {
-                e.getPlayer().setInvisible(false);
+            if (player.isInvisible()) {
+                player.setInvisible(false);
             }
         } catch (Exception ex) {
             // Ignore
             // This will be triggered on older versions
         }
+
+    }
+
+    @EventHandler
+    private void onPlayerQuit(PlayerQuitEvent event) {
+        plugin.getPlayerData().handlePlayerQuit(event.getPlayer());
     }
 }

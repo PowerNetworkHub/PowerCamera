@@ -5,6 +5,7 @@ import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.Util;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
+import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -19,9 +20,13 @@ public class SubcommandInfo extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player = (Player) sender;
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
+
+
         if (sender.hasPermission("powercamera.cmd.info")) {
             if (args.length == 0) {
-                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                String cameraName = cameraData.getSelectedCameraId();
                 if (cameraName != null) {
                     List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
                     int cameraDuration = plugin.getConfigCameras().getDuration(cameraName);
