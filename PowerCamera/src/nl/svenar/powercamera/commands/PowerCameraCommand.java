@@ -1,32 +1,30 @@
 package nl.svenar.powercamera.commands;
 
+import nl.svenar.powercamera.PowerCamera;
+import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import nl.svenar.powercamera.PowerCamera;
-
 public abstract class PowerCameraCommand {
-	
-	protected PowerCamera plugin;
-	
-	enum COMMAND_EXECUTOR {
-		NONE,
-		PLAYER,
-		CONSOLE,
-		ALL
-	}
-	
-	private COMMAND_EXECUTOR ce = COMMAND_EXECUTOR.NONE;
-	
-	public PowerCameraCommand(PowerCamera plugin, String command_name, COMMAND_EXECUTOR ce) {
-		MainCommand.add_powercamera_command(command_name, this);
-		this.plugin = plugin;
-		this.ce = ce;
-	}
-	
-	public abstract boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
-	
-	public COMMAND_EXECUTOR getCommandExecutor() {
-		return this.ce;
-	}
+
+    protected PowerCamera plugin;
+
+    private final CommandExecutionContext ce;
+    private final String command_name;
+
+    protected PowerCameraCommand(PowerCamera plugin, String command_name, CommandExecutionContext ce) {
+        this.plugin = plugin;
+        this.ce = ce;
+        this.command_name = command_name;
+    }
+
+    public abstract boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
+
+    public CommandExecutionContext getCommandExecutor() {
+        return this.ce;
+    }
+
+    public String getCommand_name() {
+        return command_name;
+    }
 }
