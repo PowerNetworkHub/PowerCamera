@@ -14,8 +14,8 @@ import org.bukkit.command.CommandSender;
 
 public class SubcommandStats extends PowerCameraCommand {
 
-    public SubcommandStats(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.ALL);
+    public SubcommandStats(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.ALL);
     }
 
     @Override

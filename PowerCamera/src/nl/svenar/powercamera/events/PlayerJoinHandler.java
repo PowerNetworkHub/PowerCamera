@@ -25,11 +25,11 @@ public class PlayerJoinHandler implements Listener {
                     .getBoolean("on-join.show-once")) {
                     List<String> joinCameras = this.plugin.getConfigPlugin().getConfig().getStringList("on-join.random-player-camera-path");
                     Random rand = new Random();
-                    String camera_name = joinCameras.get(rand.nextInt(joinCameras.size()));
-                    if (camera_name.length() > 0) {
-                        if (this.plugin.getConfigCameras().camera_exists(camera_name)) {
-                            this.plugin.player_camera_handler.put(e.getPlayer().getUniqueId(),
-                                new CameraHandler(plugin, e.getPlayer(), camera_name).generatePath().start());
+                    String cameraName = joinCameras.get(rand.nextInt(joinCameras.size()));
+                    if (cameraName.length() > 0) {
+                        if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
+                            this.plugin.playerCamera_handler.put(e.getPlayer().getUniqueId(),
+                                new CameraHandler(plugin, e.getPlayer(), cameraName).generatePath().start());
                         }
                     }
                 }

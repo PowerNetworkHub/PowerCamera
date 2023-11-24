@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 public class SubcommandHelp extends PowerCameraCommand {
 
-    public SubcommandHelp(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.ALL);
+    public SubcommandHelp(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.ALL);
     }
 
     @Override

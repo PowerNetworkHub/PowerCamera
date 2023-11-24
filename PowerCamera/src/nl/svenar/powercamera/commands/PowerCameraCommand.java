@@ -10,12 +10,12 @@ public abstract class PowerCameraCommand {
     protected PowerCamera plugin;
 
     private final CommandExecutionContext ce;
-    private final String command_name;
+    private final String commandName;
 
-    protected PowerCameraCommand(PowerCamera plugin, String command_name, CommandExecutionContext ce) {
+    protected PowerCameraCommand(PowerCamera plugin, String commandName, CommandExecutionContext ce) {
         this.plugin = plugin;
         this.ce = ce;
-        this.command_name = command_name;
+        this.commandName = commandName;
     }
 
     public abstract boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
@@ -24,7 +24,7 @@ public abstract class PowerCameraCommand {
         return this.ce;
     }
 
-    public String getCommand_name() {
-        return command_name;
+    public String getcommandName() {
+        return commandName;
     }
 }

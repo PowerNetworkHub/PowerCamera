@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 
 public class SubcommandAddPoint extends PowerCameraCommand {
 
-    public SubcommandAddPoint(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandAddPoint(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
@@ -19,22 +19,22 @@ public class SubcommandAddPoint extends PowerCameraCommand {
         if (sender.hasPermission("powercamera.cmd.addpoint")) {
             String easing = "linear";
             if (args.length == 0) {
-                String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                if (camera_name != null) {
-                    plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, camera_name);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + camera_name + "'!");
+                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                if (cameraName != null) {
+                    plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, cameraName);
+                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
                 }
 
             } else if (args.length == 1) {
-                String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
+                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                 easing = args[0];
                 if (easing.equalsIgnoreCase("linear") || easing.equalsIgnoreCase("teleport")) {
-                    if (camera_name != null) {
-                        plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, camera_name);
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + camera_name + "'!");
+                    if (cameraName != null) {
+                        plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, cameraName);
+                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");

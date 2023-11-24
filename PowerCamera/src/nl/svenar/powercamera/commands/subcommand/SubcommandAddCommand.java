@@ -10,19 +10,19 @@ import org.bukkit.entity.Player;
 
 public class SubcommandAddCommand extends PowerCameraCommand {
 
-    public SubcommandAddCommand(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandAddCommand(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (sender.hasPermission("powercamera.cmd.addpoint")) {
             if (args.length > 0) {
-                String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                if (camera_name != null) {
+                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                if (cameraName != null) {
                     String command = String.join(" ", args);
-                    plugin.getConfigCameras().camera_addcommand(command, camera_name);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Command added to camera '" + camera_name + "'!");
+                    plugin.getConfigCameras().camera_addcommand(command, cameraName);
+                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Command added to camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");

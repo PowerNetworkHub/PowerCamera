@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 
 public class SubcommandInvisible extends PowerCameraCommand {
 
-    public SubcommandInvisible(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandInvisible(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override

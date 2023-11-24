@@ -3,7 +3,7 @@ package nl.svenar.powercamera;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import nl.svenar.powercamera.PowerCamera.CAMERA_MODE;
+import nl.svenar.powercamera.data.CameraMode;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -20,111 +20,112 @@ public class CameraHandler extends BukkitRunnable {
 
     private final PowerCamera plugin;
     private final Player player;
-    private final String camera_name;
+    private final String cameraName;
 
-    private final ArrayList<Location> camera_path_points = new ArrayList<Location>();
-    private final HashMap<Integer, ArrayList<String>> camera_path_commands = new HashMap<Integer, ArrayList<String>>();
+    private final ArrayList<Location> cameraPathPoints = new ArrayList<Location>();
+    private final HashMap<Integer, ArrayList<String>> cameraPath_commands = new HashMap<Integer, ArrayList<String>>();
 
     private GameMode previous_gamemode;
-    private Location previous_player_location;
+    private Location previous_playerLocation;
     private boolean previous_invisible;
 
-    public CameraHandler(PowerCamera plugin, Player player, String camera_name) {
+    public CameraHandler(PowerCamera plugin, Player player, String cameraName) {
         this.plugin = plugin;
         this.player = player;
-        this.camera_name = camera_name;
+        this.cameraName = cameraName;
     }
 
     public CameraHandler generatePath() {
-        int max_points = (this.plugin.getConfigCameras().getDuration(this.camera_name) * 1000) / this.single_frame_duration_ms;
+        int maxPoints = (this.plugin.getConfigCameras().getDuration(this.cameraName) * 1000) / this.single_frame_duration_ms;
 
-        List<String> raw_camera_points = this.plugin.getConfigCameras().getPoints(this.camera_name);
-        List<String> raw_camera_move_points = getMovementPoints(raw_camera_points);
+        List<String> rawCameraPoints = this.plugin.getConfigCameras().getPoints(this.cameraName);
+        List<String> rawCameraMovePoints = getMovementPoints(rawCameraPoints);
 
-        if (raw_camera_move_points.size() - 1 == 0) {
-            for (int j = 0; j < max_points - 1; j++) {
-                this.camera_path_points.add(Util.deserializeLocation(raw_camera_move_points.get(0).split(":", 2)[1]));
+        if (rawCameraMovePoints.size() - 1 == 0) {
+            for (int j = 0; j < maxPoints - 1; j++) {
+                this.cameraPathPoints.add(Util.deserializeLocation(rawCameraMovePoints.get(0).split(":", 2)[1]));
             }
         } else {
-            for (int i = 0; i < raw_camera_move_points.size() - 1; i++) {
-                String raw_point = raw_camera_move_points.get(i).split(":", 2)[1];
-                String raw_point_next = raw_camera_move_points.get(i + 1).split(":", 2)[1];
-                String easing = raw_camera_move_points.get(i + 1).split(":", 2)[0];
+            for (int i = 0; i < rawCameraMovePoints.size() - 1; i++) {
+                String rawPoint = rawCameraMovePoints.get(i).split(":", 2)[1];
+                String rawPointNext = rawCameraMovePoints.get(i + 1).split(":", 2)[1];
+                String easing = rawCameraMovePoints.get(i + 1).split(":", 2)[0];
 
-                Location point = Util.deserializeLocation(raw_point);
-                Location point_next = Util.deserializeLocation(raw_point_next);
+                Location point = Util.deserializeLocation(rawPoint);
+                Location pointNext = Util.deserializeLocation(rawPointNext);
 
-                this.camera_path_points.add(point);
-                for (int j = 0; j < max_points / (raw_camera_move_points.size() - 1) - 1; j++) {
+                this.cameraPathPoints.add(point);
+                for (int j = 0; j < maxPoints / (rawCameraMovePoints.size() - 1) - 1; j++) {
                     if (easing.equalsIgnoreCase("linear")) {
-                        this.camera_path_points.add(translateLinear(point, point_next, j, max_points / (raw_camera_move_points.size() - 1) - 1));
+                        this.cameraPathPoints.add(translateLinear(point, pointNext, j, maxPoints / (rawCameraMovePoints.size() - 1) - 1));
                     }
                     if (easing.equalsIgnoreCase("teleport")) {
-                        this.camera_path_points.add(point_next);
+                        this.cameraPathPoints.add(pointNext);
                     }
                 }
             }
         }
 
-        int command_index = 0;
-        for (String raw_point : raw_camera_points) {
-            String type = raw_point.split(":", 3)[0];
-//			String easing = raw_point.split(":", 3)[1];
-            String data = raw_point.split(":", (type == "location" ? 3 : 2))[type == "location" ? 2 : 1];
+        int commandIndex = 0;
+        for (String rawPoint : rawCameraPoints) {
+            String type = rawPoint.split(":", 3)[0];
+//			String easing = rawPoint.split(":", 3)[1];
+            String data = rawPoint.split(":", (type.equals("location") ? 3 : 2))[type.equals("location") ? 2 : 1];
 
             if (type.equalsIgnoreCase("location")) {
-                command_index += 1;
+                commandIndex += 1;
             }
 
             if (type.equalsIgnoreCase("command")) {
-                int index = ((command_index) * max_points / (raw_camera_move_points.size()) - 1);
-                index = command_index == 0 ? 0 : index - 1;
-                index = index < 0 ? 0 : index;
-				if (!this.camera_path_commands.containsKey(index)) {
-					this.camera_path_commands.put(index, new ArrayList<String>());
+                int index = ((commandIndex) * maxPoints / (rawCameraMovePoints.size()) - 1);
+                index = commandIndex == 0 ? 0 : index - 1;
+                index = Math.max(index, 0);
+				if (!this.cameraPath_commands.containsKey(index)) {
+					this.cameraPath_commands.put(index, new ArrayList<>());
 				}
-                this.camera_path_commands.get(index).add(data);
-//				this.camera_path_commands.put(index, raw_camera_points.get(0));
+                this.cameraPath_commands.get(index).add(data);
+//				this.cameraPath_commands.put(index, rawCameraPoints.get(0));
             }
         }
 
         return this;
     }
 
-    private List<String> getMovementPoints(List<String> raw_camera_points) {
+    private List<String> getMovementPoints(List<String> rawCameraPoints) {
         List<String> output = new ArrayList<String>();
-        for (String raw_point : raw_camera_points) {
-            String[] point_data = raw_point.split(":", 2);
-            if (point_data[0].equalsIgnoreCase("location")) {
-                output.add(point_data[1]);
+        for (String rawPoint : rawCameraPoints) {
+            String[] pointData = rawPoint.split(":", 2);
+            if (pointData[0].equalsIgnoreCase("location")) {
+                output.add(pointData[1]);
             }
         }
         return output;
     }
 
-    private Location translateLinear(Location point, Location point_next, int progress, int progress_max) {
-        if (!point.getWorld().getUID().toString().equals(point_next.getWorld().getUID().toString())) {
-            return point_next;
+    private Location translateLinear(Location point, Location pointNext, int progress, int progress_max) {
+        if (!point.getWorld().getUID().toString().equals(pointNext.getWorld().getUID().toString())) {
+            return pointNext;
         }
 
-        Location new_point = new Location(point_next.getWorld(), point.getX(), point.getY(), point.getZ());
+        Location newPoint = new Location(pointNext.getWorld(), point.getX(), point.getY(), point.getZ());
 
-        new_point.setX(calculateProgress(point.getX(), point_next.getX(), progress, progress_max));
-        new_point.setY(calculateProgress(point.getY(), point_next.getY(), progress, progress_max));
-        new_point.setZ(calculateProgress(point.getZ(), point_next.getZ(), progress, progress_max));
-        new_point.setYaw((float) calculateProgress(point.getYaw(), point_next.getYaw(), progress, progress_max));
-        new_point.setPitch((float) calculateProgress(point.getPitch(), point_next.getPitch(), progress, progress_max));
+        newPoint.setX(lerp(point.getX(), pointNext.getX(), progress, progress_max));
+        newPoint.setY(lerp(point.getY(), pointNext.getY(), progress, progress_max));
+        newPoint.setZ(lerp(point.getZ(), pointNext.getZ(), progress, progress_max));
+        newPoint.setYaw((float) lerp(point.getYaw(), pointNext.getYaw(), progress, progress_max));
+        newPoint.setPitch((float) lerp(point.getPitch(), pointNext.getPitch(), progress, progress_max));
 
-        return new_point;
+        return newPoint;
     }
 
-    private double calculateProgress(double start, double end, int progress, int progress_max) {
+    
+    private double lerp(double start, double end, int progress, int progress_max) { // Linear interpolation
         return start + ((double) progress / (double) progress_max) * (end - start);
     }
 
     public CameraHandler start() {
         this.previous_gamemode = this.player.getGameMode();
-        this.previous_player_location = this.player.getLocation();
+        this.previous_playerLocation = this.player.getLocation();
         this.previous_invisible = Util.isPlayerInvisible(this.player);
 
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) {
@@ -134,26 +135,26 @@ public class CameraHandler extends BukkitRunnable {
 			player.setInvisible(true);
 		}
 
-        this.plugin.player_camera_mode.put(this.player.getUniqueId(), CAMERA_MODE.VIEW);
+        this.plugin.playerCameraMode.put(this.player.getUniqueId(), CameraMode.VIEW);
         runTaskTimer(this.plugin, 1L, 1L);
-        if (camera_path_points.size() > 0) {
-            player.teleport(camera_path_points.get(0));
+        if (cameraPathPoints.size() > 0) {
+            player.teleport(cameraPathPoints.get(0));
         }
 
 		if (!this.player.hasPermission("powercamera.hidestartmessages")) {
-			this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.camera_name + "'!");
+			this.player.sendMessage(this.plugin.getPluginChatPrefix() + ChatColor.GREEN + "Viewing the path of camera '" + this.cameraName + "'!");
 		}
         return this;
     }
 
     public CameraHandler stop() {
-        plugin.player_camera_mode.put(player.getUniqueId(), CAMERA_MODE.NONE);
+        plugin.playerCameraMode.put(player.getUniqueId(), CameraMode.NONE);
         try {
             this.cancel();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
-        player.teleport(previous_player_location);
+        player.teleport(previous_playerLocation);
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) {
 			player.setGameMode(previous_gamemode);
 		}
@@ -162,7 +163,7 @@ public class CameraHandler extends BukkitRunnable {
 		}
 
 		if (!this.player.hasPermission("powercamera.hidestartmessages")) {
-			player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + camera_name + "' has ended!");
+			player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + cameraName + "' has ended!");
 		}
         return this;
     }
@@ -173,69 +174,69 @@ public class CameraHandler extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (plugin.player_camera_mode.get(player.getUniqueId()) == PowerCamera.CAMERA_MODE.VIEW) {
-            if (this.ticks > camera_path_points.size() - 2) {
+        if (plugin.playerCameraMode.get(player.getUniqueId()) == CameraMode.VIEW) {
+            if (this.ticks > cameraPathPoints.size() - 2) {
                 this.stop();
                 return;
             }
 
-            Location current_pos = camera_path_points.get(this.ticks);
-            Location next_point = camera_path_points.get(this.ticks + 1);
+            Location currentPos = cameraPathPoints.get(this.ticks);
+            Location next_point = cameraPathPoints.get(this.ticks + 1);
 
-            player.teleport(camera_path_points.get(this.ticks));
+            player.teleport(cameraPathPoints.get(this.ticks));
 
-            if (camera_path_commands.containsKey(this.ticks)) {
-                for (String cmd : camera_path_commands.get(this.ticks)) {
+            if (cameraPath_commands.containsKey(this.ticks)) {
+                for (String cmd : cameraPath_commands.get(this.ticks)) {
                     String command = cmd.replaceAll("%player%", player.getName());
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
                 }
             }
 
-            player.setVelocity(calculateVelocity(current_pos, next_point));
+            player.setVelocity(calculateVelocity(currentPos, next_point));
 
             this.ticks += 1;
         } else {
-			if (plugin.player_camera_mode.get(player.getUniqueId()) == PowerCamera.CAMERA_MODE.NONE) {
+			if (plugin.playerCameraMode.get(player.getUniqueId()) == CameraMode.NONE) {
 				return;
 			}
-            player.teleport(previous_player_location);
+            player.teleport(previous_playerLocation);
 			if (plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) {
 				player.setGameMode(previous_gamemode);
 			}
 			if (plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) {
 				player.setInvisible(previous_invisible);
 			}
-            plugin.player_camera_mode.put(player.getUniqueId(), PowerCamera.CAMERA_MODE.NONE);
+            plugin.playerCameraMode.put(player.getUniqueId(), CameraMode.NONE);
             player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview ended!");
         }
 
     }
 
-    public CameraHandler preview(Player player, int num, int preview_time) {
-        List<String> camera_points = plugin.getConfigCameras().getPoints(camera_name);
+    public CameraHandler preview(Player player, int num, int previewTime) {
+        List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
 
 		if (num < 0) {
 			num = 0;
 		}
 
-		if (num > camera_points.size() - 1) {
-			num = camera_points.size() - 1;
+		if (num > cameraPoints.size() - 1) {
+			num = cameraPoints.size() - 1;
 		}
 
-        if (!camera_points.get(num).split(":", 2)[0].equalsIgnoreCase("location")) {
+        if (!cameraPoints.get(num).split(":", 2)[0].equalsIgnoreCase("location")) {
             player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Point " + (num + 1) + " is not a location!");
             return this;
         }
 
         player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview started of point " + (num + 1) + "!");
-        player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Ending in " + preview_time + " seconds.");
+        player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Ending in " + previewTime + " seconds.");
 
         previous_gamemode = player.getGameMode();
-        previous_player_location = player.getLocation();
-        Location point = Util.deserializeLocation(camera_points.get(num).split(":", 3)[2]);
+        previous_playerLocation = player.getLocation();
+        Location point = Util.deserializeLocation(cameraPoints.get(num).split(":", 3)[2]);
         previous_invisible = player.isInvisible();
 
-        plugin.player_camera_mode.put(player.getUniqueId(), PowerCamera.CAMERA_MODE.PREVIEW);
+        plugin.playerCameraMode.put(player.getUniqueId(), CameraMode.PREVIEW);
 		if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) {
 			player.setGameMode(GameMode.SPECTATOR);
 		}
@@ -244,7 +245,7 @@ public class CameraHandler extends BukkitRunnable {
 		}
         player.teleport(point);
 
-        runTaskLater(this.plugin, preview_time * 20L);
+        runTaskLater(this.plugin, previewTime * 20L);
         return this;
     }
 

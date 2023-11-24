@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 
 public class SubcommandDelpoint extends PowerCameraCommand {
 
-    public SubcommandDelpoint(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandDelpoint(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
@@ -23,10 +23,10 @@ public class SubcommandDelpoint extends PowerCameraCommand {
                     num = Integer.parseInt(args[0]) - 1;
                 }
 
-                String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                if (camera_name != null) {
-                    plugin.getConfigCameras().camera_removepoint(camera_name, num);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point " + num + " removed from camera '" + camera_name + "'!");
+                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                if (cameraName != null) {
+                    plugin.getConfigCameras().camera_removepoint(cameraName, num);
+                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point " + num + " removed from camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");

@@ -10,20 +10,20 @@ import org.bukkit.entity.Player;
 
 public class SubcommandSelect extends PowerCameraCommand {
 
-    public SubcommandSelect(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandSelect(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (sender.hasPermission("powercamera.cmd.select")) {
             if (args.length == 1) {
-                String camera_name = args[0];
-                if (plugin.getConfigCameras().camera_exists(camera_name)) {
-                    plugin.player_selected_camera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().get_camera_name_ignorecase(camera_name));
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + camera_name + "' selected!");
+                String cameraName = args[0];
+                if (plugin.getConfigCameras().cameraExists(cameraName)) {
+                    plugin.playerSelectedCamera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().getCameraName_ignorecase(cameraName));
+                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
                 } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + camera_name + "' does not exists!");
+                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");
                 }
 
             } else {

@@ -14,17 +14,17 @@ public class PluginConfig {
 
     private final PowerCamera plugin;
 
-    public PluginConfig(PowerCamera plugin) {
+    public PluginConfig(PowerCamera plugin, String fileName) {
         this.plugin = plugin;
 
-        createConfigFile();
+        createConfigFile(fileName);
     }
 
-    private void createConfigFile() {
-        configFile = new File(plugin.getDataFolder(), "config.yml");
+    private void createConfigFile(String fileName) {
+        configFile = new File(plugin.getDataFolder(), fileName);
         if (!configFile.exists()) {
             configFile.getParentFile().mkdirs();
-            plugin.saveResource("config.yml", false);
+            plugin.saveResource(fileName, false);
         }
 
         config = new YamlConfiguration();

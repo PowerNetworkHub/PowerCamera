@@ -1,7 +1,9 @@
 package nl.svenar.powercamera.commands;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import nl.svenar.powercamera.PowerCamera;
@@ -27,7 +29,7 @@ import org.bukkit.command.CommandSender;
 
 public class MainCommand implements CommandExecutor {
 
-    private final Map<String, PowerCameraCommand> powercamera_commands = new HashMap<String, PowerCameraCommand>();
+    private final Map<String, PowerCameraCommand> powercameraCommands = new HashMap<String, PowerCameraCommand>();
 
     private final PowerCamera plugin;
 
@@ -51,12 +53,16 @@ public class MainCommand implements CommandExecutor {
         registerSubcommand(new SubcommandInvisible(plugin, "invisible"));
     }
 
-    public PowerCameraCommand get_powercamera_command(String command_name) {
-        return powercamera_commands.get(command_name.toLowerCase());
+    public PowerCameraCommand get_powercameraCommand(String commandName) {
+        return powercameraCommands.get(commandName.toLowerCase());
     }
 
-    private void registerSubcommand(PowerCameraCommand command_handler) {
-        powercamera_commands.put(command_handler.getCommand_name().toLowerCase(Locale.ROOT), command_handler);
+    private void registerSubcommand(PowerCameraCommand commandHandler) {
+        powercameraCommands.put(commandHandler.getcommandName().toLowerCase(Locale.ROOT), commandHandler);
+    }
+
+    public List<String> getSubcommands() {
+        return new ArrayList<>(powercameraCommands.keySet());
     }
 
     @Override
@@ -69,24 +75,24 @@ public class MainCommand implements CommandExecutor {
             sender.sendMessage("");
             sender.sendMessage(ChatColor.DARK_GREEN + "Author: " + ChatColor.GREEN + plugin.getPluginDescriptionFile().getAuthors().get(0));
             sender.sendMessage(ChatColor.DARK_GREEN + "Version: " + ChatColor.GREEN + plugin.getPluginDescriptionFile().getVersion());
-            sender.sendMessage(ChatColor.DARK_GREEN + "Website: " + ChatColor.GREEN + plugin.WEBSITE_URL);
+            sender.sendMessage(ChatColor.DARK_GREEN + "Website: " + ChatColor.GREEN + PowerCamera.WEBSITE_URL);
             sender.sendMessage(ChatColor.DARK_GREEN + "Support me: " + ChatColor.YELLOW + "https://ko-fi.com/svenar");
             sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
             return false;
         }
 
         String command = args[0];
-        PowerCameraCommand command_handler = get_powercamera_command(command);
+        PowerCameraCommand commandHandler = get_powercameraCommand(command);
 
-        if (command_handler == null) {
+        if (commandHandler == null) {
             sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Unknown Command");
             return false;
         }
 
-        boolean is_allowed = command_handler.getCommandExecutor().isAllowed(sender);
+        boolean isAllowed = commandHandler.getCommandExecutor().isAllowed(sender);
 
-        if (is_allowed) {
-            return command_handler.onCommand(sender, cmd, commandLabel, Arrays.copyOfRange(args, 1, args.length));
+        if (isAllowed) {
+            return commandHandler.onCommand(sender, cmd, commandLabel, Arrays.copyOfRange(args, 1, args.length));
         }
 
         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Only players can use this command");

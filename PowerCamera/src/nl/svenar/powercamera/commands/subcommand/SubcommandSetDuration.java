@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 public class SubcommandSetDuration extends PowerCameraCommand {
 
-    public SubcommandSetDuration(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandSetDuration(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
@@ -22,11 +22,11 @@ public class SubcommandSetDuration extends PowerCameraCommand {
                 int duration = Util.timeStringToSecondsConverter(args[0]);
 
                 if (duration > 0) {
-                    String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                    if (camera_name != null) {
-                        plugin.getConfigCameras().setDuration(camera_name, duration);
+                    String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                    if (cameraName != null) {
+                        plugin.getConfigCameras().setDuration(cameraName, duration);
                         sender.sendMessage(
-                            plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera path duration set to: " + duration + " seconds on camera '" + camera_name
+                            plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera path duration set to: " + duration + " seconds on camera '" + cameraName
                                 + "'");
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");

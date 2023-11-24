@@ -13,33 +13,33 @@ import org.bukkit.entity.Player;
 
 public class SubcommandInfo extends PowerCameraCommand {
 
-    public SubcommandInfo(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandInfo(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (sender.hasPermission("powercamera.cmd.info")) {
             if (args.length == 0) {
-                String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                if (camera_name != null) {
-                    List<String> camera_points = plugin.getConfigCameras().getPoints(camera_name);
-                    int camera_duration = plugin.getConfigCameras().getDuration(camera_name);
+                String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                if (cameraName != null) {
+                    List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
+                    int camera_duration = plugin.getConfigCameras().getDuration(cameraName);
 
                     sender.sendMessage(
                         ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "----------" + ChatColor.AQUA + plugin.getPluginDescriptionFile().getName()
                             + ChatColor.DARK_AQUA + "----------" + ChatColor.BLUE + "===");
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + camera_name);
+                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + cameraName);
                     sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + camera_duration + " seconds");
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + camera_points.size() + ChatColor.DARK_GREEN + "):");
+                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + cameraPoints.size() + ChatColor.DARK_GREEN + "):");
 
                     int index = 0;
-                    for (String raw_point : camera_points) {
+                    for (String rawPoint : cameraPoints) {
                         index++;
 
-                        String type = raw_point.split(":", 3)[0];
-                        String easing = raw_point.split(":", 3)[1];
-                        String point = raw_point.split(":", 3)[2];
+                        String type = rawPoint.split(":", 3)[0];
+                        String easing = rawPoint.split(":", 3)[1];
+                        String point = rawPoint.split(":", 3)[2];
 
                         String point_info = "";
                         point_info += "#" + index + " ";

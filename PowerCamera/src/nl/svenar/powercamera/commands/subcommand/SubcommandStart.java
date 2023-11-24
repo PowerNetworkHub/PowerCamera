@@ -4,6 +4,7 @@ import nl.svenar.powercamera.CameraHandler;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
 import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
+import nl.svenar.powercamera.data.CameraMode;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,20 +12,20 @@ import org.bukkit.entity.Player;
 
 public class SubcommandStart extends PowerCameraCommand {
 
-    public SubcommandStart(PowerCamera plugin, String command_name) {
-        super(plugin, command_name, CommandExecutionContext.PLAYER);
+    public SubcommandStart(PowerCamera plugin, String commandName) {
+        super(plugin, commandName, CommandExecutionContext.PLAYER);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (args.length == 0) {
             if (sender.hasPermission("powercamera.cmd.start")) {
-                if (this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == null
-                    || this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == PowerCamera.CAMERA_MODE.NONE) {
-                    String camera_name = plugin.player_selected_camera.get(((Player) sender).getUniqueId());
-                    if (camera_name != null) {
-                        this.plugin.player_camera_handler.put(((Player) sender).getUniqueId(),
-                            new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start());
+                if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
+                    || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
+                    String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
+                    if (cameraName != null) {
+                        this.plugin.playerCamera_handler.put(((Player) sender).getUniqueId(),
+                            new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
@@ -37,16 +38,16 @@ public class SubcommandStart extends PowerCameraCommand {
             }
 
         } else if (args.length == 1) {
-            String camera_name = args[0];
+            String cameraName = args[0];
 
-            if (sender.hasPermission("powercamera.cmd.start." + camera_name.toLowerCase())) {
-                if (this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == null
-                    || this.plugin.player_camera_mode.get(((Player) sender).getUniqueId()) == PowerCamera.CAMERA_MODE.NONE) {
-                    if (this.plugin.getConfigCameras().camera_exists(camera_name)) {
-                        this.plugin.player_camera_handler.put(((Player) sender).getUniqueId(),
-                            new CameraHandler(plugin, (Player) sender, camera_name).generatePath().start());
+            if (sender.hasPermission("powercamera.cmd.start." + cameraName.toLowerCase())) {
+                if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
+                    || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
+                    if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
+                        this.plugin.playerCamera_handler.put(((Player) sender).getUniqueId(),
+                            new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + camera_name + "' not found!");
+                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + cameraName + "' not found!");
                     }
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Camera already active!");
