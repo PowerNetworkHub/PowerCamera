@@ -21,8 +21,8 @@ public class SubcommandStop extends PowerCameraCommand {
             if (sender.hasPermission("powercamera.cmd.stop")) {
                 if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) != null
                     && this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) != CameraMode.NONE
-                    && this.plugin.playerCamera_handler.get(((Player) sender).getUniqueId()) != null) {
-                    this.plugin.playerCamera_handler.get(((Player) sender).getUniqueId()).stop();
+                    && this.plugin.playerCameraHandler.get(((Player) sender).getUniqueId()) != null) {
+                    this.plugin.playerCameraHandler.get(((Player) sender).getUniqueId()).stop();
                     if (!sender.hasPermission("powercamera.hidestartmessages")) {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Current camera stopped");
                     }

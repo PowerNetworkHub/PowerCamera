@@ -20,51 +20,51 @@ public class SubcommandHelp extends PowerCameraCommand {
         if (sender instanceof Player) {
             if (sender.hasPermission("powercamera.cmd.help")) {
                 String tellrawbase = "tellraw %player% [\"\",{\"text\":\"[\",\"color\":\"black\"},{\"text\":\"/%cmd% %arg%\",\"color\":\"green\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/%cmd% %arg%\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"/%cmd% %arg%\"}},{\"text\":\"]\",\"color\":\"black\"},{\"text\":\" %help%\",\"color\":\"dark_green\"}]";
-                ArrayList<String> help_messages = new ArrayList<String>();
+                ArrayList<String> helpMessages = new ArrayList<String>();
 
-                help_messages.add(
+                helpMessages.add(
                     "tellraw %player% [\"\",{\"text\":\"===\",\"color\":\"blue\"},{\"text\":\"----------\",\"color\":\"dark_aqua\"},{\"text\":\"%plugin%\",\"color\":\"aqua\"},{\"text\":\"----------\",\"color\":\"dark_aqua\"},{\"text\":\"===\",\"color\":\"blue\"}]"
                         .replace("%plugin%", plugin.getPluginDescriptionFile().getName()).replace("%player%", sender.getName()));
 
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "create <name>").replace("%help%", "Create a new camera path").replace("%player%", sender.getName())
                         .replace("%cmd%", commandLabel));
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "remove <name>").replace("%help%", "Remove a camera path").replace("%player%", sender.getName())
                         .replace("%cmd%", commandLabel));
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "addpoint").replace("%help%", "Add an point to a camera path").replace("%player%", sender.getName())
                         .replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "addcommand <command>").replace("%player%", sender.getName())
+                helpMessages.add(tellrawbase.replace("%arg%", "addcommand <command>").replace("%player%", sender.getName())
                     .replace("%help%", "Add an command to a camera path, %player% gets replaced with the player's name").replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "delpoint [point_number]").replace("%help%", "Remove an point from acamera path")
+                helpMessages.add(tellrawbase.replace("%arg%", "delpoint [pointNumber]").replace("%help%", "Remove an point from acamera path")
                     .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "select <name>").replace("%help%", "Select a camera path by name")
+                helpMessages.add(tellrawbase.replace("%arg%", "select <name>").replace("%help%", "Select a camera path by name")
                     .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "preview <point_number>").replace("%help%", "Preview a point on the selected camera path")
+                helpMessages.add(tellrawbase.replace("%arg%", "preview <pointNumber>").replace("%help%", "Preview a point on the selected camera path")
                     .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "info").replace("%help%", "Info about the currently selected camera path")
+                helpMessages.add(tellrawbase.replace("%arg%", "info").replace("%help%", "Info about the currently selected camera path")
                     .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "setduration <duration>").replace("%help%", "Set the total duration of the current camera path")
                         .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "start [cameraname]").replace("%help%", "Run the camera").replace("%player%", sender.getName())
                         .replace("%cmd%", commandLabel));
-                help_messages.add(
+                helpMessages.add(
                     tellrawbase.replace("%arg%", "startother <playername> <cameraname>").replace("%help%", "Run a camera for a different player")
                         .replace("%player%", sender.getName()).replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "stop").replace("%help%", "Stop the camera").replace("%player%", sender.getName())
+                helpMessages.add(tellrawbase.replace("%arg%", "stop").replace("%help%", "Stop the camera").replace("%player%", sender.getName())
                     .replace("%cmd%", commandLabel));
-                help_messages.add(tellrawbase.replace("%arg%", "stats").replace("%help%", "Show plugin stats").replace("%player%", sender.getName())
+                helpMessages.add(tellrawbase.replace("%arg%", "stats").replace("%help%", "Show plugin stats").replace("%player%", sender.getName())
                     .replace("%cmd%", commandLabel));
 
-                help_messages.add(
+                helpMessages.add(
                     "tellraw %player% [\"\",{\"text\":\"===\",\"color\":\"blue\"},{\"text\":\"-------------------------------\",\"color\":\"dark_aqua\"},{\"text\":\"===\",\"color\":\"blue\"}]".replace(
                         "%player%", sender.getName()));
 
 				if (plugin != null) {
-					for (String msg : help_messages) {
+					for (String msg : helpMessages) {
 						plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), msg);
 					}
 				}
@@ -87,12 +87,12 @@ public class SubcommandHelp extends PowerCameraCommand {
                 ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " addcommand <command>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
                     + "Add an command to a camera path, %player% gets replaced with the player's name");
             sender.sendMessage(
-                ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " delpoint [point_number]" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
+                ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " delpoint [pointNumber]" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
                     + "Remove an point from a camera path");
             sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " select <name>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
                 + "Select a camera path by name");
             sender.sendMessage(
-                ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " preview <point_number>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
+                ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " preview <pointNumber>" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
                     + "Preview a point on the selected camera path");
             sender.sendMessage(ChatColor.BLACK + "[" + ChatColor.RED + "/" + commandLabel + " info" + ChatColor.BLACK + "] " + ChatColor.DARK_GREEN
                 + "Info about the currently selected camera path");

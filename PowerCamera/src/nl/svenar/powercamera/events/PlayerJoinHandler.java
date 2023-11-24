@@ -28,7 +28,7 @@ public class PlayerJoinHandler implements Listener {
                     String cameraName = joinCameras.get(rand.nextInt(joinCameras.size()));
                     if (cameraName.length() > 0) {
                         if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                            this.plugin.playerCamera_handler.put(e.getPlayer().getUniqueId(),
+                            this.plugin.playerCameraHandler.put(e.getPlayer().getUniqueId(),
                                 new CameraHandler(plugin, e.getPlayer(), cameraName).generatePath().start());
                         }
                     }

@@ -24,20 +24,20 @@ public class SubcommandStats extends PowerCameraCommand {
             if (args.length == 0) {
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
                 format.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Instant current_time = Instant.now();
+                Instant currentTime = Instant.now();
 
-                String invisibility_mode = "None";
+                String invisibilityMode = "None";
 
                 if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode") && this.plugin.getConfigPlugin().getConfig()
                     .getBoolean("camera-effects.invisible")) {
-                    invisibility_mode = "spectator & invisible";
+                    invisibilityMode = "spectator & invisible";
                 } else {
                     if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.spectator-mode")) {
-                        invisibility_mode = "specator";
+                        invisibilityMode = "specator";
                     }
 
                     if (this.plugin.getConfigPlugin().getConfig().getBoolean("camera-effects.invisible")) {
-                        invisibility_mode = "invisible";
+                        invisibilityMode = "invisible";
                     }
                 }
 
@@ -50,10 +50,10 @@ public class SubcommandStats extends PowerCameraCommand {
                     ChatColor.DARK_GREEN + plugin.getPluginDescriptionFile().getName() + " Version: " + ChatColor.GREEN + plugin.getPluginDescriptionFile()
                         .getVersion());
                 sender.sendMessage(ChatColor.DARK_GREEN + "Plugin uptime: " + ChatColor.GREEN + format.format(
-                    Duration.between(plugin.powercamera_start_time, current_time).toMillis()));
+                    Duration.between(plugin.powercameraStartTime, currentTime).toMillis()));
                 sender.sendMessage(ChatColor.DARK_GREEN + "Registered cameras: " + ChatColor.GREEN + plugin.getConfigCameras().getCameras().size());
                 sender.sendMessage(ChatColor.DARK_GREEN + "Registered players: " + ChatColor.GREEN + plugin.getConfigCameras().getPlayers().size());
-                sender.sendMessage(ChatColor.DARK_GREEN + "Invisibility mode: " + ChatColor.GREEN + invisibility_mode);
+                sender.sendMessage(ChatColor.DARK_GREEN + "Invisibility mode: " + ChatColor.GREEN + invisibilityMode);
                 sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
 
             } else {

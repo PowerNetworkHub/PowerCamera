@@ -22,7 +22,7 @@ public class SubcommandCreate extends PowerCameraCommand {
                 if (plugin.getConfigCameras().createCamera(cameraName)) {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' created!");
 //					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select this camera by doing: /" + commandLabel + " select " + cameraName + "");
-                    plugin.playerSelectedCamera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().getCameraName_ignorecase(cameraName));
+                    plugin.playerSelectedCamera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' already exists!");

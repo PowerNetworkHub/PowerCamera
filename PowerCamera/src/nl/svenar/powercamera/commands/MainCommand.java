@@ -53,7 +53,7 @@ public class MainCommand implements CommandExecutor {
         registerSubcommand(new SubcommandInvisible(plugin, "invisible"));
     }
 
-    public PowerCameraCommand get_powercameraCommand(String commandName) {
+    public PowerCameraCommand getPowercameraCommand(String commandName) {
         return powercameraCommands.get(commandName.toLowerCase());
     }
 
@@ -82,7 +82,7 @@ public class MainCommand implements CommandExecutor {
         }
 
         String command = args[0];
-        PowerCameraCommand commandHandler = get_powercameraCommand(command);
+        PowerCameraCommand commandHandler = getPowercameraCommand(command);
 
         if (commandHandler == null) {
             sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Unknown Command");

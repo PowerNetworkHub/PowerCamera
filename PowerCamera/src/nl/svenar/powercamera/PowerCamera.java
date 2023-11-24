@@ -27,11 +27,11 @@ public class PowerCamera extends JavaPlugin {
 
     public Map<UUID, String> playerSelectedCamera = new HashMap<>(); // Selected camera name
     public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
-    public Map<UUID, CameraHandler> playerCamera_handler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
-    public Instant powercamera_start_time = Instant.now();
+    public Map<UUID, CameraHandler> playerCameraHandler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
+    public Instant powercameraStartTime = Instant.now();
     private PluginDescriptionFile pdf;
-    private String plugin_chat_prefix = ChatColor.BLACK + "[" + ChatColor.AQUA + "%plugin_name%" + ChatColor.BLACK + "] ";
-    private PluginConfig config_plugin;
+    private String pluginChatPrefix = ChatColor.BLACK + "[" + ChatColor.AQUA + "%pluginName%" + ChatColor.BLACK + "] ";
+    private PluginConfig configPlugin;
     private CameraStorage configCameras;
     private MainCommand mainCommand;
 
@@ -39,7 +39,7 @@ public class PowerCamera extends JavaPlugin {
     public void onEnable() {
         pdf = this.getDescription();
 
-        plugin_chat_prefix = plugin_chat_prefix.replace("%plugin_name%", pdf.getName());
+        pluginChatPrefix = pluginChatPrefix.replace("%pluginName%", pdf.getName());
 
         registerListeners();
         registerCommand();
@@ -76,30 +76,30 @@ public class PowerCamera extends JavaPlugin {
     }
 
     public String getPluginChatPrefix() {
-        return plugin_chat_prefix;
+        return pluginChatPrefix;
     }
 
     private void setupConfig() {
-        config_plugin = new PluginConfig(this, "config.yml");
+        configPlugin = new PluginConfig(this, "config.yml");
         configCameras = new CameraStorage(this);
 
-        config_plugin.getConfig().set("version", null);
+        configPlugin.getConfig().set("version", null);
         configCameras.getConfig().set("version", null);
 
-        if (!config_plugin.getConfig().isSet("camera-effects.spectator-mode")) {
-            config_plugin.getConfig().set("camera-effects.spectator-mode", true);
+        if (!configPlugin.getConfig().isSet("camera-effects.spectator-mode")) {
+            configPlugin.getConfig().set("camera-effects.spectator-mode", true);
         }
 
-        if (!config_plugin.getConfig().isSet("camera-effects.invisible")) {
-            config_plugin.getConfig().set("camera-effects.invisible", false);
+        if (!configPlugin.getConfig().isSet("camera-effects.invisible")) {
+            configPlugin.getConfig().set("camera-effects.invisible", false);
         }
 
-        if (config_plugin.getConfig().isSet("on-new-player-join-camera-path")) {
+        if (configPlugin.getConfig().isSet("on-new-player-join-camera-path")) {
             ArrayList<String> list = new ArrayList<>();
-            list.add(config_plugin.getConfig().getString("on-new-player-join-camera-path"));
-            config_plugin.getConfig().set("on-join.random-player-camera-path", list);
-            config_plugin.getConfig().set("on-join.show-once", true);
-            config_plugin.getConfig().set("on-new-player-join-camera-path", null);
+            list.add(configPlugin.getConfig().getString("on-new-player-join-camera-path"));
+            configPlugin.getConfig().set("on-join.random-player-camera-path", list);
+            configPlugin.getConfig().set("on-join.show-once", true);
+            configPlugin.getConfig().set("on-new-player-join-camera-path", null);
         }
 
         for (String cameraName : configCameras.getCameras()) {
@@ -124,15 +124,15 @@ public class PowerCamera extends JavaPlugin {
             configCameras.getConfig().set("cameras." + cameraName + ".points", newPoints);
         }
 
-        config_plugin.getConfig().set("version", getPluginDescriptionFile().getVersion());
-        config_plugin.saveConfig();
+        configPlugin.getConfig().set("version", getPluginDescriptionFile().getVersion());
+        configPlugin.saveConfig();
 
         configCameras.getConfig().set("version", getPluginDescriptionFile().getVersion());
         configCameras.saveConfig();
     }
 
     public PluginConfig getConfigPlugin() {
-        return config_plugin;
+        return configPlugin;
     }
 
     public CameraStorage getConfigCameras() {

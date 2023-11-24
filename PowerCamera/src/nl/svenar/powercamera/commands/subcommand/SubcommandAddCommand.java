@@ -21,7 +21,7 @@ public class SubcommandAddCommand extends PowerCameraCommand {
                 String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                 if (cameraName != null) {
                     String command = String.join(" ", args);
-                    plugin.getConfigCameras().camera_addcommand(command, cameraName);
+                    plugin.getConfigCameras().cameraAddcommand(command, cameraName);
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Command added to camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");

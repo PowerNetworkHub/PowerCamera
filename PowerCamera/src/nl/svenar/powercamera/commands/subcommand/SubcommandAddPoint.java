@@ -21,7 +21,7 @@ public class SubcommandAddPoint extends PowerCameraCommand {
             if (args.length == 0) {
                 String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                 if (cameraName != null) {
-                    plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, cameraName);
+                    plugin.getConfigCameras().cameraAddpoint(((Player) sender).getLocation(), easing, cameraName);
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
@@ -33,7 +33,7 @@ public class SubcommandAddPoint extends PowerCameraCommand {
                 easing = args[0];
                 if (easing.equalsIgnoreCase("linear") || easing.equalsIgnoreCase("teleport")) {
                     if (cameraName != null) {
-                        plugin.getConfigCameras().camera_addpoint(((Player) sender).getLocation(), easing, cameraName);
+                        plugin.getConfigCameras().cameraAddpoint(((Player) sender).getLocation(), easing, cameraName);
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");

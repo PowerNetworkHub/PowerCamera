@@ -24,13 +24,13 @@ public class SubcommandInfo extends PowerCameraCommand {
                 String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                 if (cameraName != null) {
                     List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
-                    int camera_duration = plugin.getConfigCameras().getDuration(cameraName);
+                    int cameraDuration = plugin.getConfigCameras().getDuration(cameraName);
 
                     sender.sendMessage(
                         ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "----------" + ChatColor.AQUA + plugin.getPluginDescriptionFile().getName()
                             + ChatColor.DARK_AQUA + "----------" + ChatColor.BLUE + "===");
                     sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + cameraName);
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + camera_duration + " seconds");
+                    sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + cameraDuration + " seconds");
                     sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + cameraPoints.size() + ChatColor.DARK_GREEN + "):");
 
                     int index = 0;
@@ -41,22 +41,22 @@ public class SubcommandInfo extends PowerCameraCommand {
                         String easing = rawPoint.split(":", 3)[1];
                         String point = rawPoint.split(":", 3)[2];
 
-                        String point_info = "";
-                        point_info += "#" + index + " ";
-                        point_info += type + " (" + easing + "): ";
+                        String pointInfo = "";
+                        pointInfo += "#" + index + " ";
+                        pointInfo += type + " (" + easing + "): ";
 
                         if (type.equalsIgnoreCase("location")) {
-                            Location point_location = Util.deserializeLocation(point);
+                            Location pointLocation = Util.deserializeLocation(point);
 
-                            point_info += point_location.getWorld().getName();
-                            point_info +=
-                                ", (X: " + point_location.getBlockX() + ", Y: " + point_location.getBlockY() + ", Z: " + point_location.getBlockZ() + ")";
-                            point_info += ", (Yaw: " + Math.round(point_location.getYaw()) + ", Pitch: " + Math.round(point_location.getPitch()) + ")";
+                            pointInfo += pointLocation.getWorld().getName();
+                            pointInfo +=
+                                ", (X: " + pointLocation.getBlockX() + ", Y: " + pointLocation.getBlockY() + ", Z: " + pointLocation.getBlockZ() + ")";
+                            pointInfo += ", (Yaw: " + Math.round(pointLocation.getYaw()) + ", Pitch: " + Math.round(pointLocation.getPitch()) + ")";
                         } else {
-                            point_info += point;
+                            pointInfo += point;
                         }
 
-                        sender.sendMessage(ChatColor.DARK_GREEN + "- " + ChatColor.GREEN + point_info);
+                        sender.sendMessage(ChatColor.DARK_GREEN + "- " + ChatColor.GREEN + pointInfo);
                     }
                     sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
                 } else {

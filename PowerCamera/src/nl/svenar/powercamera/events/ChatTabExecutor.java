@@ -22,9 +22,9 @@ public class ChatTabExecutor implements TabCompleter {
         List<String> list = new ArrayList<String>();
 
         if (args.length == 1) {
-            List<String> commands_list = plugin.getMainCommand().getSubcommands();
+            List<String> commandsList = plugin.getMainCommand().getSubcommands();
 
-            for (String command : commands_list) {
+            for (String command : commandsList) {
                 if (command.toLowerCase().contains(args[0].toLowerCase())) {
                     list.add(command);
                 }

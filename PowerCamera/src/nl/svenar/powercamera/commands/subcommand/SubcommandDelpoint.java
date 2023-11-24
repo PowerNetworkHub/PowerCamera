@@ -25,7 +25,7 @@ public class SubcommandDelpoint extends PowerCameraCommand {
 
                 String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                 if (cameraName != null) {
-                    plugin.getConfigCameras().camera_removepoint(cameraName, num);
+                    plugin.getConfigCameras().cameraRemovepoint(cameraName, num);
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point " + num + " removed from camera '" + cameraName + "'!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");

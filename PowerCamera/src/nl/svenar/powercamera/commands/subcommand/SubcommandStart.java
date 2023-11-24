@@ -24,7 +24,7 @@ public class SubcommandStart extends PowerCameraCommand {
                     || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
                     String cameraName = plugin.playerSelectedCamera.get(((Player) sender).getUniqueId());
                     if (cameraName != null) {
-                        this.plugin.playerCamera_handler.put(((Player) sender).getUniqueId(),
+                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
@@ -44,7 +44,7 @@ public class SubcommandStart extends PowerCameraCommand {
                 if (this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == null
                     || this.plugin.playerCameraMode.get(((Player) sender).getUniqueId()) == CameraMode.NONE) {
                     if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                        this.plugin.playerCamera_handler.put(((Player) sender).getUniqueId(),
+                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
                     } else {
                         sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + cameraName + "' not found!");

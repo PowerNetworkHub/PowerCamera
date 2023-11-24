@@ -29,7 +29,7 @@ public class SubcommandPreview extends PowerCameraCommand {
 
                         int num = Integer.parseInt(args[0]) - 1;
 
-                        this.plugin.playerCamera_handler.put(((Player) sender).getUniqueId(),
+                        this.plugin.playerCameraHandler.put(((Player) sender).getUniqueId(),
                             new CameraHandler(plugin, (Player) sender, cameraName).generatePath().preview((Player) sender, num, previewTime));
 
                     } else {

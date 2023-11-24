@@ -20,7 +20,7 @@ public class SubcommandSelect extends PowerCameraCommand {
             if (args.length == 1) {
                 String cameraName = args[0];
                 if (plugin.getConfigCameras().cameraExists(cameraName)) {
-                    plugin.playerSelectedCamera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().getCameraName_ignorecase(cameraName));
+                    plugin.playerSelectedCamera.put(((Player) sender).getUniqueId(), plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");

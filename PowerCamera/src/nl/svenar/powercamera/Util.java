@@ -11,23 +11,28 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Util {
 
+    private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]{0,1}$");
+    private static final Pattern REGEX_SECONDS = Pattern.compile("\\d+[sS]");
+    private static final Pattern REGEX_MINUTES = Pattern.compile("\\d+[mM]");
+    private static final Pattern REGEX_HOURS = Pattern.compile("\\d+[hH]");
+
     public static String serializeLocation(Location loc) {
         return loc.getWorld().getUID() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch();
     }
 
     public static Location deserializeLocation(String input) {
-        String[] input_split = input.split(";");
+        String[] inputSplit = input.split(";");
 
-        UUID world_uid = UUID.fromString(input_split[0]);
+        UUID worldUid = UUID.fromString(inputSplit[0]);
 
-        double x = Double.parseDouble(input_split[1]);
-        double y = Double.parseDouble(input_split[2]);
-        double z = Double.parseDouble(input_split[3]);
+        double x = Double.parseDouble(inputSplit[1]);
+        double y = Double.parseDouble(inputSplit[2]);
+        double z = Double.parseDouble(inputSplit[3]);
 
-        float yaw = Float.parseFloat(input_split[4]);
-        float pitch = Float.parseFloat(input_split[5]);
+        float yaw = Float.parseFloat(inputSplit[4]);
+        float pitch = Float.parseFloat(inputSplit[5]);
 
-        World world = Bukkit.getServer().getWorld(world_uid);
+        World world = Bukkit.getServer().getWorld(worldUid);
         if (world == null) {
             world = Bukkit.getServer().getWorlds().get(0);
         }
@@ -35,28 +40,28 @@ public class Util {
         return new Location(world, x, y, z, yaw, pitch);
     }
 
-    public static int timeStringToSecondsConverter(String time_input) {
-        Matcher regex_int = Pattern.compile("^\\d+[^a-zA-Z]{0,1}$").matcher(time_input);
+    public static int timeStringToSecondsConverter(String timeInput) {
+        Matcher regexInt = REGEX_INT.matcher(timeInput);
 
-        Matcher regex_seconds = Pattern.compile("\\d+[sS]").matcher(time_input);
-        Matcher regex_minutes = Pattern.compile("\\d+[mM]").matcher(time_input);
-        Matcher regex_hours = Pattern.compile("\\d+[hH]").matcher(time_input);
+        Matcher regexSeconds = REGEX_SECONDS.matcher(timeInput);
+        Matcher regexMinutes = REGEX_MINUTES.matcher(timeInput);
+        Matcher regexHours = REGEX_HOURS.matcher(timeInput);
 
         int seconds = 0;
 
-        if (regex_int.find()) {
-            seconds = Integer.parseInt(time_input);
+        if (regexInt.find()) {
+            seconds = Integer.parseInt(timeInput);
         } else {
-            if (regex_seconds.find()) {
-                seconds += Integer.parseInt(time_input.substring(regex_seconds.start(), regex_seconds.end() - 1));
+            if (regexSeconds.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexSeconds.start(), regexSeconds.end() - 1));
             }
 
-            if (regex_minutes.find()) {
-                seconds += Integer.parseInt(time_input.substring(regex_minutes.start(), regex_minutes.end() - 1)) * 60;
+            if (regexMinutes.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexMinutes.start(), regexMinutes.end() - 1)) * 60;
             }
 
-            if (regex_hours.find()) {
-                seconds += Integer.parseInt(time_input.substring(regex_hours.start(), regex_hours.end() - 1)) * 3600;
+            if (regexHours.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexHours.start(), regexHours.end() - 1)) * 3600;
             }
         }
 

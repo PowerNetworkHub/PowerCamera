@@ -20,8 +20,8 @@ public class SubcommandInvisible extends PowerCameraCommand {
         if (sender.hasPermission("powercamera.cmd.invisible")) {
             if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("false")) {
-                    boolean set_invisible = args[0].equalsIgnoreCase("true");
-                    player.setInvisible(set_invisible);
+                    boolean setInvisible = args[0].equalsIgnoreCase("true");
+                    player.setInvisible(setInvisible);
                 } else {
                     sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel
                         + " invisible <true/false>");
