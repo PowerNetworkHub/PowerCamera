@@ -4,6 +4,7 @@ import java.util.List;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.Util;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
+import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

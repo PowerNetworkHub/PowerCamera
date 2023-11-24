@@ -2,6 +2,7 @@ package nl.svenar.powercamera.commands.subcommand;
 
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
+import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
