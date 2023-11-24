@@ -70,7 +70,7 @@ public class SubcommandHelp extends PowerCameraCommand {
 				}
 
             } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+                sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
             }
         } else {
             sender.sendMessage(

@@ -24,7 +24,11 @@ public abstract class PowerCameraCommand {
         return this.ce;
     }
 
-    public String getcommandName() {
+    public String getCommandName() {
         return commandName;
+    }
+
+    protected void sendMessage(CommandSender sender, String message) {
+        sender.sendMessage(plugin.getPluginChatPrefix() + message);
     }
 }

@@ -22,45 +22,41 @@ public class SubcommandStart extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        String cameraName;
+        String permission = "powercamera.cmd.start";
+
         if (args.length == 0) {
-            if (sender.hasPermission("powercamera.cmd.start")) {
-                if (cameraData.getCameraMode() == CameraMode.NONE) {
-                    String cameraName = cameraData.getSelectedCameraId();
-                    if (cameraName != null) {
-                        cameraData.setCameraHandler(
-                            new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
-                    } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Camera already active!");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " start");
-            }
-
+            cameraName = cameraData.getSelectedCameraId();
         } else if (args.length == 1) {
-            String cameraName = args[0];
-
-            if (sender.hasPermission("powercamera.cmd.start." + cameraName.toLowerCase())) {
-                if (cameraData.getCameraMode() == CameraMode.NONE) {
-                    if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                        cameraData.setCameraHandler(
-                            new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
-                    } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + cameraName + "' not found!");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Camera already active!");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
-            }
+            cameraName = args[0];
+            permission = permission + "." + cameraName.toLowerCase();
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " start");
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " start");
+            return false;
         }
 
+        if (!sender.hasPermission(permission)) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
+
+        if (cameraData.getCameraMode() != CameraMode.NONE) {
+            sendMessage(sender, ChatColor.DARK_RED + "Camera already active!");
+            return false;
+        }
+
+        if (cameraName == null) {
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
+            return false;
+        }
+
+        if (!this.plugin.getConfigCameras().cameraExists(cameraName)) {
+            sendMessage(sender, ChatColor.RED + "Camera '" + cameraName + "' not found!");
+            return false;
+        }
+
+        cameraData.setCameraHandler(new CameraHandler(plugin, (Player) sender, cameraName).generatePath().start());
         return false;
     }
 }

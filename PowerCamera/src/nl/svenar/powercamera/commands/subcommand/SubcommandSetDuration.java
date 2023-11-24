@@ -21,32 +21,32 @@ public class SubcommandSetDuration extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.setduration")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-        if (sender.hasPermission("powercamera.cmd.setduration")) {
-            if (args.length == 1) {
-                int duration = Util.timeStringToSecondsConverter(args[0]);
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " setduration <duration>");
+            return false;
+        }
 
-                if (duration > 0) {
-                    String cameraName = cameraData.getSelectedCameraId();
-                    if (cameraName != null) {
-                        plugin.getConfigCameras().setDuration(cameraName, duration);
-                        sender.sendMessage(
-                            plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera path duration set to: " + duration + " seconds on camera '" + cameraName
-                                + "'");
-                    } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Duration must be greater than 0");
-                }
+        int duration = Util.timeStringToSecondsConverter(args[0]);
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " setduration <duration>");
-            }
+        if (duration <= 0) {
+            sendMessage(sender, ChatColor.DARK_RED + "Duration must be greater than 0");
+            return false;
+        }
 
+        String cameraName = cameraData.getSelectedCameraId();
+        if (cameraName != null) {
+            plugin.getConfigCameras().setDuration(cameraName, duration);
+            sender.sendMessage(
+                plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera path duration set to: " + duration + " seconds on camera '" + cameraName
+                    + "'");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
         }
 
         return false;

@@ -17,22 +17,21 @@ public class SubcommandInvisible extends PowerCameraCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player player = (Player) sender;
-        if (sender.hasPermission("powercamera.cmd.invisible")) {
-            if (args.length == 1) {
-                if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("false")) {
-                    boolean setInvisible = args[0].equalsIgnoreCase("true");
-                    player.setInvisible(setInvisible);
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel
-                        + " invisible <true/false>");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel
-                    + " invisible <true/false>");
-            }
+        if (!sender.hasPermission("powercamera.cmd.invisible")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
+
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " invisible <true/false>");
+            return false;
+        }
+
+        if (args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("false")) {
+            boolean setInvisible = args[0].equalsIgnoreCase("true");
+            player.setInvisible(setInvisible);
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED
-                + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " invisible <true/false>");
         }
 
         return false;

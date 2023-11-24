@@ -23,59 +23,59 @@ public class SubcommandInfo extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.info")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-        if (sender.hasPermission("powercamera.cmd.info")) {
-            if (args.length == 0) {
-                String cameraName = cameraData.getSelectedCameraId();
-                if (cameraName != null) {
-                    List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
-                    int cameraDuration = plugin.getConfigCameras().getDuration(cameraName);
+        if (args.length != 0) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " info");
+            return false;
+        }
 
-                    sender.sendMessage(
-                        ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "----------" + ChatColor.AQUA + plugin.getPluginDescriptionFile().getName()
-                            + ChatColor.DARK_AQUA + "----------" + ChatColor.BLUE + "===");
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + cameraName);
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + cameraDuration + " seconds");
-                    sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + cameraPoints.size() + ChatColor.DARK_GREEN + "):");
+        String cameraName = cameraData.getSelectedCameraId();
+        if (cameraName == null) {
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
+            return false;
+        }
 
-                    int index = 0;
-                    for (String rawPoint : cameraPoints) {
-                        index++;
+        List<String> cameraPoints = plugin.getConfigCameras().getPoints(cameraName);
+        int cameraDuration = plugin.getConfigCameras().getDuration(cameraName);
 
-                        String type = rawPoint.split(":", 3)[0];
-                        String easing = rawPoint.split(":", 3)[1];
-                        String point = rawPoint.split(":", 3)[2];
+        sender.sendMessage(
+            ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "----------" + ChatColor.AQUA + plugin.getPluginDescriptionFile().getName()
+                + ChatColor.DARK_AQUA + "----------" + ChatColor.BLUE + "===");
+        sender.sendMessage(ChatColor.DARK_GREEN + "Camera name: " + ChatColor.GREEN + cameraName);
+        sender.sendMessage(ChatColor.DARK_GREEN + "Path duration: " + ChatColor.GREEN + cameraDuration + " seconds");
+        sender.sendMessage(ChatColor.DARK_GREEN + "Camera points (" + ChatColor.GREEN + cameraPoints.size() + ChatColor.DARK_GREEN + "):");
 
-                        String pointInfo = "";
-                        pointInfo += "#" + index + " ";
-                        pointInfo += type + " (" + easing + "): ";
+        int index = 0;
+        for (String rawPoint : cameraPoints) {
+            index++;
 
-                        if (type.equalsIgnoreCase("location")) {
-                            Location pointLocation = Util.deserializeLocation(point);
+            String type = rawPoint.split(":", 3)[0];
+            String easing = rawPoint.split(":", 3)[1];
+            String point = rawPoint.split(":", 3)[2];
 
-                            pointInfo += pointLocation.getWorld().getName();
-                            pointInfo +=
-                                ", (X: " + pointLocation.getBlockX() + ", Y: " + pointLocation.getBlockY() + ", Z: " + pointLocation.getBlockZ() + ")";
-                            pointInfo += ", (Yaw: " + Math.round(pointLocation.getYaw()) + ", Pitch: " + Math.round(pointLocation.getPitch()) + ")";
-                        } else {
-                            pointInfo += point;
-                        }
+            String pointInfo = "";
+            pointInfo += "#" + index + " ";
+            pointInfo += type + " (" + easing + "): ";
 
-                        sender.sendMessage(ChatColor.DARK_GREEN + "- " + ChatColor.GREEN + pointInfo);
-                    }
-                    sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                }
+            if (type.equalsIgnoreCase("location")) {
+                Location pointLocation = Util.deserializeLocation(point);
 
+                pointInfo += pointLocation.getWorld().getName();
+                pointInfo +=
+                    ", (X: " + pointLocation.getBlockX() + ", Y: " + pointLocation.getBlockY() + ", Z: " + pointLocation.getBlockZ() + ")";
+                pointInfo += ", (Yaw: " + Math.round(pointLocation.getYaw()) + ", Pitch: " + Math.round(pointLocation.getPitch()) + ")";
             } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " info");
+                pointInfo += point;
             }
 
-        } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sender.sendMessage(ChatColor.DARK_GREEN + "- " + ChatColor.GREEN + pointInfo);
         }
+        sender.sendMessage(ChatColor.BLUE + "===" + ChatColor.DARK_AQUA + "-------------------------------" + ChatColor.BLUE + "===");
 
         return false;
     }

@@ -20,36 +20,38 @@ public class SubcommandStartOther extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (args.length == 2) {
-            String targetName = args[0];
-            String cameraName = args[1];
-            if (sender.hasPermission("powercamera.cmd.startother")) {
-                Player targetPlayer = Bukkit.getPlayer(targetName);
+        if (args.length != 2) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " startother <playername> <cameraname>");
+            return false;
+        }
 
-                if (targetPlayer != null) {
-                    PlayerCameraData cameraData = plugin.getPlayerData().get(targetPlayer);
+        String targetName = args[0];
+        String cameraName = args[1];
 
-                    if (cameraData.getCameraMode() == CameraMode.NONE) {
-                        if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
-                           cameraData.setCameraHandler(
-                                new CameraHandler(plugin, targetPlayer, cameraName).generatePath().start());
-                            sender.sendMessage(
-                                plugin.getPluginChatPrefix() + ChatColor.GREEN + "Playing '" + cameraName + "' on player: " + targetPlayer.getName());
-                        } else {
-                            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "Camera '" + cameraName + "' not found!");
-                        }
-                    } else {
-                        sender.sendMessage(
-                            plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Player '" + targetPlayer.getName() + "' already has a camera active!");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Player '" + targetName + "' not found or is offline!");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
-            }
+        if (!sender.hasPermission("powercamera.cmd.startother")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
+
+        Player targetPlayer = Bukkit.getPlayer(targetName);
+
+        if (targetPlayer == null) {
+            sendMessage(sender, ChatColor.DARK_RED + "Player '" + targetName + "' not found or is offline!");
+            return false;
+        }
+
+        PlayerCameraData cameraData = plugin.getPlayerData().get(targetPlayer);
+
+        if (cameraData.getCameraMode() != CameraMode.NONE) {
+            sendMessage(sender, ChatColor.DARK_RED + "Player '" + targetPlayer.getName() + "' already has a camera active!");
+            return false;
+        }
+
+        if (this.plugin.getConfigCameras().cameraExists(cameraName)) {
+            cameraData.setCameraHandler(new CameraHandler(plugin, targetPlayer, cameraName).generatePath().start());
+            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Playing '" + cameraName + "' on player: " + targetPlayer.getName());
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " startother <playername> <cameraname>");
+            sendMessage(sender, ChatColor.RED + "Camera '" + cameraName + "' not found!");
         }
 
         return false;

@@ -20,22 +20,22 @@ public class SubcommandSelect extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.select")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-        if (sender.hasPermission("powercamera.cmd.select")) {
-            if (args.length == 1) {
-                String cameraName = args[0];
-                if (plugin.getConfigCameras().cameraExists(cameraName)) {
-                    cameraData.setSelectedCameraId(plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");
-                }
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " select <name>");
+            return false;
+        }
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " select <name>");
-            }
+        String cameraName = args[0];
+        if (plugin.getConfigCameras().cameraExists(cameraName)) {
+            cameraData.setSelectedCameraId(plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
+            sendMessage(sender, ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");
         }
 
         return false;

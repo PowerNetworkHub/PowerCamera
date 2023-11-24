@@ -20,25 +20,25 @@ public class SubcommandCreate extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.create")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-        if (sender.hasPermission("powercamera.cmd.create")) {
-            if (args.length == 1) {
-                String cameraName = args[0];
-                if (plugin.getConfigCameras().createCamera(cameraName)) {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' created!");
-//					sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select this camera by doing: /" + commandLabel + " select " + cameraName + "");
-                    cameraData.setSelectedCameraId(plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' already exists!");
-                }
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " create <name>");
+            return false;
+        }
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " create <name>");
-            }
+        String cameraName = args[0];
 
+        if (plugin.getConfigCameras().createCamera(cameraName)) {
+            sendMessage(sender, ChatColor.GREEN + "Camera '" + cameraName + "' created!");
+
+            cameraData.setSelectedCameraId(plugin.getConfigCameras().getCameraNameIgnorecase(cameraName));
+            sendMessage(sender, ChatColor.GREEN + "Camera '" + cameraName + "' selected!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "A camera with the name '" + cameraName + "' already exists!");
         }
 
         return false;

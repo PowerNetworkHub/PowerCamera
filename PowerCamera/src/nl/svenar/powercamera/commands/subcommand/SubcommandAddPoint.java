@@ -20,39 +20,34 @@ public class SubcommandAddPoint extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
-        if (sender.hasPermission("powercamera.cmd.addpoint")) {
-            String easing = "linear";
-            if (args.length == 0) {
-                String cameraName = cameraData.getSelectedCameraId();
-                if (cameraName != null) {
-                    plugin.getConfigCameras().cameraAddpoint(((Player) sender).getLocation(), easing, cameraName);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                }
+        if (!sender.hasPermission("powercamera.cmd.addpoint")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-            } else if (args.length == 1) {
-                String cameraName = cameraData.getSelectedCameraId();
-                easing = args[0];
-                if (easing.equalsIgnoreCase("linear") || easing.equalsIgnoreCase("teleport")) {
-                    if (cameraName != null) {
-                        plugin.getConfigCameras().cameraAddpoint(((Player) sender).getLocation(), easing, cameraName);
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
-                    } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " addpoint [linear/teleport]");
-                }
+        String easing = "linear";
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " addpoint [linear/teleport]");
+        if (args.length > 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " addpoint [linear/teleport]");
+            return false;
+        }
+
+        String cameraName = cameraData.getSelectedCameraId();
+
+        if(args.length == 1) {
+            easing = args[0];
+            if (!easing.equalsIgnoreCase("linear") && !easing.equalsIgnoreCase("teleport")) {
+                sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " addpoint [linear/teleport]");
+                return false;
             }
+        }
 
+        if (cameraName != null) {
+            plugin.getConfigCameras().cameraAddpoint(((Player) sender).getLocation(), easing, cameraName);
+            sendMessage(sender, ChatColor.GREEN + "Point added to camera '" + cameraName + "'!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
         }
 
         return false;

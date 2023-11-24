@@ -19,25 +19,26 @@ public class SubcommandAddCommand extends PowerCameraCommand {
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player player = (Player) sender;
 
-        if (sender.hasPermission("powercamera.cmd.addpoint")) {
-            if (args.length > 0) {
-                PlayerCameraData cameraData = plugin.getPlayerData().get(player);
-                String cameraName = cameraData.getSelectedCameraId();
-                if (cameraName != null) {
-                    String command = String.join(" ", args);
-                    plugin.getConfigCameras().cameraAddcommand(command, cameraName);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Command added to camera '" + cameraName + "'!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                }
+        if (!(sender.hasPermission("powercamera.cmd.addpoint"))) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " addcommand <command>");
-            }
-
+        if (args.length == 0) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " addcommand <command>");
+            return false;
+        }
+        
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
+        String cameraName = cameraData.getSelectedCameraId();
+        
+        if (cameraName != null) {
+            String command = String.join(" ", args);
+            plugin.getConfigCameras().cameraAddcommand(command, cameraName);
+            sendMessage(sender, ChatColor.GREEN + "Command added to camera '" + cameraName + "'!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
         }
 
         return false;

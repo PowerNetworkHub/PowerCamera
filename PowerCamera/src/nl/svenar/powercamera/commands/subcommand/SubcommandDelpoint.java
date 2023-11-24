@@ -20,29 +20,28 @@ public class SubcommandDelpoint extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.delpoint")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-        if (sender.hasPermission("powercamera.cmd.delpoint")) {
-            if (args.length == 0 || args.length == 1) {
-                int num = -1;
-                if (args.length == 1) {
-                    num = Integer.parseInt(args[0]) - 1;
-                }
+        if (args.length > 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " delpoint [point-number]");
+            return false;
+        }
 
-                String cameraName = cameraData.getSelectedCameraId();
-                if (cameraName != null) {
-                    plugin.getConfigCameras().cameraRemovepoint(cameraName, num);
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Point " + num + " removed from camera '" + cameraName + "'!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                }
+        int num = -1;
+        if (args.length == 1) {
+            num = Integer.parseInt(args[0]) - 1;
+        }
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " delpoint [point-number]");
-            }
-
+        String cameraName = cameraData.getSelectedCameraId();
+        if (cameraName != null) {
+            plugin.getConfigCameras().cameraRemovepoint(cameraName, num);
+            sendMessage(sender, ChatColor.GREEN + "Point " + num + " removed from camera '" + cameraName + "'!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
         }
 
         return false;

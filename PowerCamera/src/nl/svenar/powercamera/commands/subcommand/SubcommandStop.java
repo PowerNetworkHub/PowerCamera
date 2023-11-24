@@ -18,24 +18,21 @@ public class SubcommandStop extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (sender instanceof Player) {
-            if (sender.hasPermission("powercamera.cmd.stop")) {
-                Player player = (Player) sender;
-                PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
+        if (!sender.hasPermission("powercamera.cmd.stop")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
+        Player player = (Player) sender;
+        PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
-                if (cameraData.getCameraMode() != CameraMode.NONE
-                    && cameraData.getCameraHandler() != null) {
-                    cameraData.getCameraHandler().stop();
-                    if (!sender.hasPermission("powercamera.hidestartmessages")) {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Current camera stopped");
-                    }
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera active!");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+        if (cameraData.getCameraMode() != CameraMode.NONE && cameraData.getCameraHandler() != null) {
+            cameraData.getCameraHandler().stop();
+            if (!sender.hasPermission("powercamera.hidestartmessages")) {
+                sendMessage(sender, ChatColor.GREEN + "Current camera stopped");
             }
+        } else {
+            sendMessage(sender, ChatColor.RED + "No camera active!");
         }
 
         return false;

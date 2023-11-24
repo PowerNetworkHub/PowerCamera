@@ -58,7 +58,7 @@ public class MainCommand implements CommandExecutor {
     }
 
     private void registerSubcommand(PowerCameraCommand commandHandler) {
-        powercameraCommands.put(commandHandler.getcommandName().toLowerCase(Locale.ROOT), commandHandler);
+        powercameraCommands.put(commandHandler.getCommandName().toLowerCase(Locale.ROOT), commandHandler);
     }
 
     public List<String> getSubcommands() {

@@ -23,31 +23,32 @@ public class SubcommandPreview extends PowerCameraCommand {
         Player player = (Player) sender;
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
 
-        if (sender.hasPermission("powercamera.cmd.preview")) {
-            if (cameraData.getCameraMode() == CameraMode.NONE) {
-                if (args.length == 1) {
-                    String cameraName = cameraData.getSelectedCameraId();
-                    if (cameraName != null) {
-                        int previewTime = plugin.getConfigPlugin().getConfig().getInt("point-preview-time");
+        if (!sender.hasPermission("powercamera.cmd.preview")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-                        int num = Integer.parseInt(args[0]) - 1;
+        if (cameraData.getCameraMode() != CameraMode.NONE) {
+            sendMessage(sender, ChatColor.DARK_RED + "Camera already active!");
+            return false;
+        }
 
-                        cameraData.setCameraHandler(
-                            new CameraHandler(plugin, (Player) sender, cameraName).generatePath().preview((Player) sender, num, previewTime));
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " preview <point-number>");
+            return false;
+        }
 
-                    } else {
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "No camera selected!");
-                        sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
-                    }
+        String cameraName = cameraData.getSelectedCameraId();
 
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " preview <point-number>");
-                }
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Camera already active!");
-            }
+        if (cameraName != null) {
+            int previewTime = plugin.getConfigPlugin().getConfig().getInt("point-preview-time");
+            int num = Integer.parseInt(args[0]) - 1;
+
+            cameraData.setCameraHandler(new CameraHandler(plugin, (Player) sender, cameraName).generatePath().preview((Player) sender, num, previewTime));
+
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "No camera selected!");
+            sendMessage(sender, ChatColor.GREEN + "Select a camera by doing: /" + commandLabel + " select <name>");
         }
 
         return false;

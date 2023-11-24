@@ -15,21 +15,20 @@ public class SubcommandRemove extends PowerCameraCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        if (sender.hasPermission("powercamera.cmd.remove")) {
-            if (args.length == 1) {
-                String cameraName = args[0];
-                if (plugin.getConfigCameras().removeCamera(cameraName)) {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Camera '" + cameraName + "' deleted!");
-                } else {
-                    sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");
-                }
+        if (!sender.hasPermission("powercamera.cmd.remove")) {
+            sendMessage(sender, ChatColor.DARK_RED + "You do not have permission to execute this command");
+            return false;
+        }
 
-            } else {
-                sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "Usage: /" + commandLabel + " remove <name>");
-            }
+        if (args.length != 1) {
+            sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " remove <name>");
+        }
 
+        String cameraName = args[0];
+        if (plugin.getConfigCameras().removeCamera(cameraName)) {
+            sendMessage(sender, ChatColor.GREEN + "Camera '" + cameraName + "' deleted!");
         } else {
-            sender.sendMessage(plugin.getPluginChatPrefix() + ChatColor.DARK_RED + "You do not have permission to execute this command");
+            sendMessage(sender, ChatColor.RED + "A camera with the name '" + cameraName + "' does not exists!");
         }
 
         return false;
