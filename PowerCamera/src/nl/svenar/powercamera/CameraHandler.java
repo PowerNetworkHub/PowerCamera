@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import nl.svenar.powercamera.data.CameraMode;
 import nl.svenar.powercamera.data.PlayerCameraData;
+import nl.svenar.powercamera.event.PowerCameraFinishEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -209,6 +210,8 @@ public class CameraHandler extends BukkitRunnable {
 			}
             getCameraData().setCameraMode(CameraMode.NONE);
             player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview ended!");
+
+            Bukkit.getPluginManager().callEvent(new PowerCameraFinishEvent(this, player));
         }
 
     }
