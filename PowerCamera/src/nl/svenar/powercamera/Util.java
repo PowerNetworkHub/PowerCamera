@@ -3,73 +3,79 @@ package nl.svenar.powercamera;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.NoSuchMethodError;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-public class Util {
+public final class Util {
 
-	public static String serializeLocation(Location loc) {
-		return loc.getWorld().getUID() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch();
-	}
+    private Util() {
+    }
 
-	public static Location deserializeLocation(String input) {
-		String[] input_split = input.split(";");
+    private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]?$");
+    private static final Pattern REGEX_SECONDS = Pattern.compile("\\d+[sS]");
+    private static final Pattern REGEX_MINUTES = Pattern.compile("\\d+[mM]");
+    private static final Pattern REGEX_HOURS = Pattern.compile("\\d+[hH]");
 
-		UUID world_uid = UUID.fromString(input_split[0]);
+    public static String serializeLocation(Location loc) {
+        return loc.getWorld().getUID() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch();
+    }
 
-		double x = Double.parseDouble(input_split[1]);
-		double y = Double.parseDouble(input_split[2]);
-		double z = Double.parseDouble(input_split[3]);
+    public static Location deserializeLocation(String input) {
+        String[] inputSplit = input.split(";");
 
-		float yaw = Float.parseFloat(input_split[4]);
-		float pitch = Float.parseFloat(input_split[5]);
+        UUID worldUid = UUID.fromString(inputSplit[0]);
 
-		World world = Bukkit.getServer().getWorld(world_uid);
-		if (world == null) {
-			world = Bukkit.getServer().getWorlds().get(0);
-		}
+        double x = Double.parseDouble(inputSplit[1]);
+        double y = Double.parseDouble(inputSplit[2]);
+        double z = Double.parseDouble(inputSplit[3]);
 
-		return new Location(world, x, y, z, yaw, pitch);
-	}
+        float yaw = Float.parseFloat(inputSplit[4]);
+        float pitch = Float.parseFloat(inputSplit[5]);
 
-	public static int timeStringToSecondsConverter(String time_input) {
-		Matcher regex_int = Pattern.compile("^\\d+[^a-zA-Z]{0,1}$").matcher(time_input);
+        World world = Bukkit.getServer().getWorld(worldUid);
+        if (world == null) {
+            world = Bukkit.getServer().getWorlds().get(0);
+        }
 
-		Matcher regex_seconds = Pattern.compile("\\d+[sS]").matcher(time_input);
-		Matcher regex_minutes = Pattern.compile("\\d+[mM]").matcher(time_input);
-		Matcher regex_hours = Pattern.compile("\\d+[hH]").matcher(time_input);
+        return new Location(world, x, y, z, yaw, pitch);
+    }
 
-		int seconds = 0;
+    public static int timeStringToSecondsConverter(String timeInput) {
+        Matcher regexInt = REGEX_INT.matcher(timeInput);
 
-		if (regex_int.find()) {
-			seconds = Integer.parseInt(time_input);
-		} else {
-			if (regex_seconds.find()) {
-				seconds += Integer.parseInt(time_input.substring(regex_seconds.start(), regex_seconds.end() - 1));
-			}
+        Matcher regexSeconds = REGEX_SECONDS.matcher(timeInput);
+        Matcher regexMinutes = REGEX_MINUTES.matcher(timeInput);
+        Matcher regexHours = REGEX_HOURS.matcher(timeInput);
 
-			if (regex_minutes.find()) {
-				seconds += Integer.parseInt(time_input.substring(regex_minutes.start(), regex_minutes.end() - 1)) * 60;
-			}
+        int seconds = 0;
 
-			if (regex_hours.find()) {
-				seconds += Integer.parseInt(time_input.substring(regex_hours.start(), regex_hours.end() - 1)) * 3600;
-			}
-		}
+        if (regexInt.find()) {
+            seconds = Integer.parseInt(timeInput);
+        } else {
+            if (regexSeconds.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexSeconds.start(), regexSeconds.end() - 1));
+            }
 
-		return seconds;
-	}
+            if (regexMinutes.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexMinutes.start(), regexMinutes.end() - 1)) * 60;
+            }
 
-	public static boolean isPlayerInvisible(Player player) {
-		try {
-			return player.isInvisible();
-		} catch (NoSuchMethodError e) {
-			return player.hasPotionEffect(PotionEffectType.INVISIBILITY);
-		}
-	}
+            if (regexHours.find()) {
+                seconds += Integer.parseInt(timeInput.substring(regexHours.start(), regexHours.end() - 1)) * 3600;
+            }
+        }
+
+        return seconds;
+    }
+
+    public static boolean isPlayerInvisible(Player player) {
+        try {
+            return player.isInvisible();
+        } catch (NoSuchMethodError e) {
+            return player.hasPotionEffect(PotionEffectType.INVISIBILITY);
+        }
+    }
 }
