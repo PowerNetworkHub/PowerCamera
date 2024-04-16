@@ -8,6 +8,16 @@
 	<name>PowerCamera</name>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>plugin.yml</include>
+					<include>config.yml</include>
+					<include>camera.yml</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
