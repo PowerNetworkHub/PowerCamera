@@ -10,11 +10,9 @@ public class PowerCameraFinishEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     private final CameraHandler cameraHandler;
-    private final Player player;
 
-    public PowerCameraFinishEvent(CameraHandler cameraHandler, Player player) {
+    public PowerCameraFinishEvent(CameraHandler cameraHandler) {
         this.cameraHandler = cameraHandler;
-        this.player = player;
     }
 
     public CameraHandler getCameraHandler() {
@@ -22,7 +20,11 @@ public class PowerCameraFinishEvent extends Event {
     }
 
     public Player getPlayer() {
-        return player;
+        return cameraHandler.getPlayer();
+    }
+
+    public String getCameraName() {
+        return cameraHandler.getCameraName();
     }
 
     public static HandlerList getHandlerList() {

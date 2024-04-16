@@ -22,6 +22,7 @@ public class CameraHandler extends BukkitRunnable {
 
     private final PowerCamera plugin;
     private final Player player;
+
     private final String cameraName;
 
     private final ArrayList<Location> cameraPathPoints = new ArrayList<Location>();
@@ -35,6 +36,14 @@ public class CameraHandler extends BukkitRunnable {
         this.plugin = plugin;
         this.player = player;
         this.cameraName = cameraName;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public String getCameraName() {
+        return cameraName;
     }
 
     public CameraHandler generatePath() {
@@ -211,7 +220,7 @@ public class CameraHandler extends BukkitRunnable {
             getCameraData().setCameraMode(CameraMode.NONE);
             player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "Preview ended!");
 
-            Bukkit.getPluginManager().callEvent(new PowerCameraFinishEvent(this, player));
+            Bukkit.getPluginManager().callEvent(new PowerCameraFinishEvent(this));
         }
 
     }
