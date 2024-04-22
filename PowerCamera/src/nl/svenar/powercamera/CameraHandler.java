@@ -186,6 +186,7 @@ public class CameraHandler extends BukkitRunnable {
         if (!this.player.hasPermission("powercamera.hidestartmessages")) {
             player.sendMessage(plugin.getPluginChatPrefix() + ChatColor.GREEN + "The path of camera '" + cameraName + "' has ended!");
         }
+        Bukkit.getPluginManager().callEvent(new PowerCameraFinishEvent(this));
         return this;
     }
 
