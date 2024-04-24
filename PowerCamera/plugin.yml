@@ -12,6 +12,8 @@ commands:
 permissions:
     powercamera.cmd.help:
         default: op
+    powercamera.cmd.reload:
+        default: op
     powercamera.cmd.create:
         default: op
     powercamera.cmd.remove:

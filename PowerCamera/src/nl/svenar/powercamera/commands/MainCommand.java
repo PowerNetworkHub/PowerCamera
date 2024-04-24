@@ -15,6 +15,7 @@ import nl.svenar.powercamera.commands.subcommand.SubcommandHelp;
 import nl.svenar.powercamera.commands.subcommand.SubcommandInfo;
 import nl.svenar.powercamera.commands.subcommand.SubcommandInvisible;
 import nl.svenar.powercamera.commands.subcommand.SubcommandPreview;
+import nl.svenar.powercamera.commands.subcommand.SubcommandReload;
 import nl.svenar.powercamera.commands.subcommand.SubcommandRemove;
 import nl.svenar.powercamera.commands.subcommand.SubcommandSelect;
 import nl.svenar.powercamera.commands.subcommand.SubcommandSetDuration;
@@ -37,6 +38,7 @@ public class MainCommand implements CommandExecutor {
         this.plugin = plugin;
 
         registerSubcommand(new SubcommandHelp(plugin, "help"));
+        registerSubcommand(new SubcommandReload(plugin, "reload"));
         registerSubcommand(new SubcommandCreate(plugin, "create"));
         registerSubcommand(new SubcommandRemove(plugin, "remove"));
         registerSubcommand(new SubcommandAddPoint(plugin, "addpoint"));

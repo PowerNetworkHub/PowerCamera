@@ -26,6 +26,8 @@ public class SubcommandHelp extends PowerCameraCommand {
                     "tellraw %player% [\"\",{\"text\":\"===\",\"color\":\"blue\"},{\"text\":\"----------\",\"color\":\"dark_aqua\"},{\"text\":\"%plugin%\",\"color\":\"aqua\"},{\"text\":\"----------\",\"color\":\"dark_aqua\"},{\"text\":\"===\",\"color\":\"blue\"}]"
                         .replace("%plugin%", plugin.getPluginDescriptionFile().getName()).replace("%player%", sender.getName()));
 
+                helpMessages.add(tellrawbase.replace("%arg%", "reload").replace("%help%", "Reload the config and cameras").replace("%player%", sender.getName())
+                        .replace("%cmd%", commandLabel));
                 helpMessages.add(
                     tellrawbase.replace("%arg%", "create <name>").replace("%help%", "Create a new camera path").replace("%player%", sender.getName())
                         .replace("%cmd%", commandLabel));

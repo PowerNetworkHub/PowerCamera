@@ -54,6 +54,14 @@ public class CameraStorage {
         }
     }
 
+    public void reloadConfig() {
+        try {
+            this.config.load(configFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean createCamera(String cameraName) {
         if (cameraExists(cameraName)) {
             return false;
