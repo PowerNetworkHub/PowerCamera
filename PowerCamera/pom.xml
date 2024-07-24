@@ -21,20 +21,6 @@
 		<changelist>-SNAPSHOT</changelist>
 	</properties>
 
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>.</directory>
-				<includes>
-					<include>plugin.yml</include>
-					<include>config.yml</include>
-					<include>camera.yml</include>
-				</includes>
-			</resource>
-		</resources>
-	</build>
-
 	<repositories>
 		<repository>
 			<id>reload-repo</id>
