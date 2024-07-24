@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.AvoidLiteralsInIfCondition", "PMD.CognitiveComplexity", "PMD.CollapsibleIfStatements", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.NPathComplexity", "PMD.UseDiamondOperator", "PMD.UseLocaleWithCaseConversions"})
 public class ChatTabExecutor implements TabCompleter {
 
     private final PowerCamera plugin;

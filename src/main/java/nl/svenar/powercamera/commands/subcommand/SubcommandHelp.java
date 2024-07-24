@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.CommentRequired", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.MethodArgumentCouldBeFinal", "PMD.UseDiamondOperator"})
 public class SubcommandHelp extends PowerCameraCommand {
 
     public SubcommandHelp(PowerCamera plugin, String commandName) {

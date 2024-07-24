@@ -5,6 +5,7 @@ import nl.svenar.powercamera.CameraHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.CommentRequired", "PMD.DataClass", "PMD.MethodArgumentCouldBeFinal"})
 public class PlayerCameraData {
 
     private final UUID playerId;

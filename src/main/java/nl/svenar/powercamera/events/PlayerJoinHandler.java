@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+@SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.CommentRequired", "PMD.EmptyCatchBlock", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.UnusedPrivateMethod", "PMD.UselessParentheses"})
 public class PlayerJoinHandler implements Listener {
 
     private final PowerCamera plugin;

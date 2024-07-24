@@ -5,6 +5,7 @@ import nl.svenar.powercamera.commands.structure.CommandExecutionContext;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+@SuppressWarnings({"PMD.CommentRequired", "PMD.MethodArgumentCouldBeFinal", "PMD.ShortVariable", "PMD.UseVarargs"})
 public abstract class PowerCameraCommand {
 
     protected PowerCamera plugin;

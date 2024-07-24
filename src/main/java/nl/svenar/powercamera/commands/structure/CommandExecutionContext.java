@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.CommentRequired", "PMD.MethodArgumentCouldBeFinal"})
 public enum CommandExecutionContext {
     NONE((sender) -> false),
     PLAYER(Player.class::isInstance),

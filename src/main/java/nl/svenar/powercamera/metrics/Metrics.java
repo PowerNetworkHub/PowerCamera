@@ -37,7 +37,7 @@ import org.bukkit.plugin.ServicePriority;
  * <p>
  * Check out https://bStats.org/ to learn more about bStats!
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "PMD.AssignmentInOperand", "PMD.AssignmentToNonFinalStatic", "PMD.AvoidAccessibilityAlteration", "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingThrowable", "PMD.AvoidDuplicateLiterals", "PMD.CognitiveComplexity", "PMD.CommentDefaultAccessModifier", "PMD.CommentRequired", "PMD.CouplingBetweenObjects", "PMD.DoNotUseThreads", "PMD.LambdaCanBeMethodReference", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.ReturnEmptyCollectionRatherThanNull", "PMD.SignatureDeclareThrowsException"})
 public class Metrics {
 
     // The version of this bStats class

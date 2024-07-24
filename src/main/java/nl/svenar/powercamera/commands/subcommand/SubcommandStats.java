@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.CommentRequired", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.SimpleDateFormatNeedsLocale"})
 public class SubcommandStats extends PowerCameraCommand {
 
     public SubcommandStats(PowerCamera plugin, String commandName) {

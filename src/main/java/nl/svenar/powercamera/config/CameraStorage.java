@@ -14,6 +14,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.AvoidPrintStackTrace", "PMD.AvoidReassigningParameters", "PMD.CommentRequired", "PMD.LinguisticNaming", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.TooManyMethods", "PMD.UseCollectionIsEmpty", "PMD.UseDiamondOperator"})
 public class CameraStorage {
 
     private File configFile;

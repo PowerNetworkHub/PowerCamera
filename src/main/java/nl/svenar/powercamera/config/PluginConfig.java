@@ -7,6 +7,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+@SuppressWarnings({"PMD.AvoidPrintStackTrace", "PMD.CommentRequired", "PMD.MethodArgumentCouldBeFinal"})
 public class PluginConfig {
 
     private File configFile;

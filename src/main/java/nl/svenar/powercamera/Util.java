@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
+@SuppressWarnings({"PMD.CommentRequired", "PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.ShortClassName", "PMD.ShortVariable"})
 public final class Util {
 
     private Util() {

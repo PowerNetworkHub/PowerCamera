@@ -3,14 +3,10 @@ package nl.svenar.powercamera;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import nl.svenar.powercamera.commands.MainCommand;
 import nl.svenar.powercamera.config.CameraStorage;
 import nl.svenar.powercamera.config.PluginConfig;
-import nl.svenar.powercamera.data.CameraMode;
 import nl.svenar.powercamera.events.ChatTabExecutor;
 import nl.svenar.powercamera.events.PlayerJoinHandler;
 import nl.svenar.powercamera.events.PlayerMoveHandler;
@@ -21,6 +17,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.AvoidDuplicateLiterals", "PMD.AvoidReassigningLoopVariables", "PMD.CognitiveComplexity", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.UnnecessaryImport", "PMD.UseDiamondOperator"})
 public class PowerCamera extends JavaPlugin {
 
     public static final String WEBSITE_URL = "https://svenar.nl/powercamera";

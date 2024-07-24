@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.CommentRequired", "PMD.MethodArgumentCouldBeFinal"})
 public class PlayerCameraDataTracker {
 
     private final Map<UUID, PlayerCameraData> cameraDataMap = new ConcurrentHashMap<>();

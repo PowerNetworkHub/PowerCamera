@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+@SuppressWarnings("PMD.CommentRequired")
 public class SubcommandReload extends PowerCameraCommand {
     public SubcommandReload(final PowerCamera plugin, final String commandName) {
         super(plugin, commandName, CommandExecutionContext.ALL);

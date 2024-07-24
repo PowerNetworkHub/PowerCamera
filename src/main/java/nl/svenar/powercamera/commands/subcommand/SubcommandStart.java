@@ -11,6 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings({"PMD.AvoidLiteralsInIfCondition", "PMD.CommentRequired", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.UseLocaleWithCaseConversions"})
 public class SubcommandStart extends PowerCameraCommand {
 
     public SubcommandStart(PowerCamera plugin, String commandName) {

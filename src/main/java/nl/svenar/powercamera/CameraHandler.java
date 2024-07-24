@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+@SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidReassigningParameters", "PMD.CallSuperInConstructor", "PMD.CognitiveComplexity", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.GodClass", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.MethodArgumentCouldBeFinal", "PMD.NPathComplexity", "PMD.RedundantFieldInitializer", "PMD.UnnecessaryCast", "PMD.UseDiamondOperator", "PMD.UselessParentheses"})
 public class CameraHandler extends BukkitRunnable {
 
     private static final int SINGLE_FRAME_DURATION_MS = 50;

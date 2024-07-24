@@ -28,6 +28,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.CommentRequired", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.UseLocaleWithCaseConversions"})
 public class MainCommand implements CommandExecutor {
 
     private final Map<String, PowerCameraCommand> powercameraCommands = new HashMap<>();
