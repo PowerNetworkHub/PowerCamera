@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>works.reload</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.7.3</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>PowerCamera</groupId>
+	<artifactId>PowerCamera</artifactId>
+	<version>${revision}${changelist}</version>
+	<name>PowerCamera</name>
+
+	<properties>
+		<!-- project version -->
+		<revision>0.7.1</revision>
+		<changelist>-SNAPSHOT</changelist>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>reload-repo</id>
+			<url>https://nexus.reloadkube.managedservices.resilient-teched.com/repository/reload/</url>
+		</repository>
+		<repository>
+			<id>spigotmc-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<site>
+			<id>${project.artifactId}-site</id>
+			<url>file:///tmp/dummy-site</url> <!-- Needs to be defined here to avoid that "PowerCamera" is appended to the staging directory. -->
+		</site>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.16.3-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<suppressionsLocation>${project.basedir}/checkstyle-suppressions.xml</suppressionsLocation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
