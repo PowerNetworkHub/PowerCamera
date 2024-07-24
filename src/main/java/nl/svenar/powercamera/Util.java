@@ -3,12 +3,15 @@ package nl.svenar.powercamera;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
+@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 @SuppressWarnings({"PMD.CommentRequired", "PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.ShortClassName", "PMD.ShortVariable"})
 public final class Util {
 

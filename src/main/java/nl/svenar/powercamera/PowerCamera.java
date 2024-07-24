@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.svenar.powercamera.commands.MainCommand;
 import nl.svenar.powercamera.config.CameraStorage;
 import nl.svenar.powercamera.config.PluginConfig;
@@ -17,6 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE", "MS_MUTABLE_COLLECTION_PKGPROTECT", "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"})
 @SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.AvoidDuplicateLiterals", "PMD.AvoidReassigningLoopVariables", "PMD.CognitiveComplexity", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.UnnecessaryImport", "PMD.UseDiamondOperator"})
 public class PowerCamera extends JavaPlugin {
 

@@ -1,6 +1,8 @@
 package nl.svenar.powercamera.commands.subcommand;
 
 import java.util.List;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.Util;
 import nl.svenar.powercamera.commands.PowerCameraCommand;
@@ -12,6 +14,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 @SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.CommentRequired", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.UseStringBufferForStringAppends"})
 public class SubcommandInfo extends PowerCameraCommand {
 

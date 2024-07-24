@@ -25,6 +25,8 @@ import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 import javax.net.ssl.HttpsURLConnection;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -37,6 +39,7 @@ import org.bukkit.plugin.ServicePriority;
  * <p>
  * Check out https://bStats.org/ to learn more about bStats!
  */
+@SuppressFBWarnings({"CT_CONSTRUCTOR_THROW", "DCN_NULLPOINTER_EXCEPTION", "DM_DEFAULT_ENCODING", "REC_CATCH_EXCEPTION"})
 @SuppressWarnings({"unused", "PMD.AssignmentInOperand", "PMD.AssignmentToNonFinalStatic", "PMD.AvoidAccessibilityAlteration", "PMD.AvoidCatchingGenericException", "PMD.AvoidCatchingThrowable", "PMD.AvoidDuplicateLiterals", "PMD.CognitiveComplexity", "PMD.CommentDefaultAccessModifier", "PMD.CommentRequired", "PMD.CouplingBetweenObjects", "PMD.DoNotUseThreads", "PMD.LambdaCanBeMethodReference", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.ReturnEmptyCollectionRatherThanNull", "PMD.SignatureDeclareThrowsException"})
 public class Metrics {
 
@@ -404,6 +407,7 @@ public class Metrics {
          *
          * @param chartId The id of the chart.
          */
+        @SuppressFBWarnings("CT_CONSTRUCTOR_THROW")
         CustomChart(String chartId) {
             if (chartId == null || chartId.isEmpty()) {
                 throw new IllegalArgumentException("ChartId cannot be null or empty!");

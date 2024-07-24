@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.Util;
 import org.bukkit.Location;
@@ -14,6 +16,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+@SuppressFBWarnings({"CT_CONSTRUCTOR_THROW", "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"})
 @SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.AvoidPrintStackTrace", "PMD.AvoidReassigningParameters", "PMD.CommentRequired", "PMD.LinguisticNaming", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.TooManyMethods", "PMD.UseCollectionIsEmpty", "PMD.UseDiamondOperator"})
 public class CameraStorage {
 

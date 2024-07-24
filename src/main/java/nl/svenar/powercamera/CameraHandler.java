@@ -3,6 +3,8 @@ package nl.svenar.powercamera;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.svenar.powercamera.data.CameraMode;
 import nl.svenar.powercamera.data.PlayerCameraData;
 import nl.svenar.powercamera.event.PowerCameraFinishEvent;
@@ -14,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 @SuppressWarnings({"PMD.AvoidCatchingGenericException", "PMD.AvoidDuplicateLiterals", "PMD.AvoidLiteralsInIfCondition", "PMD.AvoidReassigningParameters", "PMD.CallSuperInConstructor", "PMD.CognitiveComplexity", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.GodClass", "PMD.LiteralsFirstInComparisons", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.MethodArgumentCouldBeFinal", "PMD.NPathComplexity", "PMD.RedundantFieldInitializer", "PMD.UnnecessaryCast", "PMD.UseDiamondOperator", "PMD.UselessParentheses"})
 public class CameraHandler extends BukkitRunnable {
 
