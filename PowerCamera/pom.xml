@@ -2,10 +2,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>works.reload</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.7.3</version>
+		<relativePath/>
+	</parent>
+
 	<groupId>PowerCamera</groupId>
 	<artifactId>PowerCamera</artifactId>
-	<version>0.7</version>
+	<version>${revision}${changelist}</version>
 	<name>PowerCamera</name>
+
+	<properties>
+		<!-- project version -->
+		<revision>0.7.1</revision>
+		<changelist>-SNAPSHOT</changelist>
+	</properties>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -18,23 +33,26 @@
 				</includes>
 			</resource>
 		</resources>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
+
 	<repositories>
+		<repository>
+			<id>reload-repo</id>
+			<url>https://nexus.reloadkube.managedservices.resilient-teched.com/repository/reload/</url>
+		</repository>
 		<repository>
 			<id>spigotmc-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<site>
+			<id>${project.artifactId}-site</id>
+			<url>file:///tmp/dummy-site</url> <!-- Needs to be defined here to avoid that "PowerCamera" is appended to the staging directory. -->
+		</site>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.spigotmc</groupId>
