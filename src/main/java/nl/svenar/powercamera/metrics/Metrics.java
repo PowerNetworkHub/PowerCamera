@@ -45,14 +45,19 @@ public class Metrics {
 
     // The version of this bStats class
     public static final int B_STATS_VERSION = 1;
+
     // The url to which the data is sent
     private static final String URL = "https://bStats.org/submitData/bukkit";
+
     // Should failed requests be logged?
     private static boolean logFailedRequests;
+
     // Should the sent data be logged?
     private static boolean logSentData;
+
     // Should the response text be logged?
     private static boolean logResponseStatusText;
+
     // The uuid of the server
     private static String serverUUID;
 
@@ -72,10 +77,13 @@ public class Metrics {
 
     // The plugin
     private final Plugin plugin;
+
     // The plugin id
     private final int pluginId;
+
     // A list with all custom charts
     private final List<CustomChart> charts = new ArrayList<>();
+
     // Is bStats enabled on this server?
     private final boolean enabled;
 
@@ -113,14 +121,15 @@ public class Metrics {
 
             // Inform the server owners about bStats
             config.options().header(
-                "bStats collects some data for plugin authors like how many servers are using their plugins.\n" +
-                    "To honor their work, you should not disable it.\n" +
-                    "This has nearly no effect on the server performance!\n" +
-                    "Check out https://bStats.org/ to learn more :)"
+                "bStats collects some data for plugin authors like how many servers are using their plugins.\n"
+                    + "To honor their work, you should not disable it.\n"
+                    + "This has nearly no effect on the server performance!\n"
+                    + "Check out https://bStats.org/ to learn more :)"
             ).copyDefaults(true);
             try {
                 config.save(configFile);
             } catch (IOException ignored) {
+                // ignored
             }
         }
 
@@ -140,6 +149,7 @@ public class Metrics {
                     found = true; // We aren't the first
                     break;
                 } catch (NoSuchFieldException ignored) {
+                    // ignored
                 }
             }
             // Register our service
@@ -372,9 +382,11 @@ public class Metrics {
                             }
                         }
                     } catch (NullPointerException | NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
+                        // ignored
                     }
                 }
             } catch (NoSuchFieldException ignored) {
+                // ignored
             }
         }
 
@@ -397,7 +409,7 @@ public class Metrics {
     /**
      * Represents a custom chart.
      */
-    public static abstract class CustomChart {
+    public abstract static class CustomChart {
 
         // The id of the chart
         final String chartId;

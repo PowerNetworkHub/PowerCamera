@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PowerCamera extends JavaPlugin {
 
     public static final String WEBSITE_URL = "https://svenar.nl/powercamera";
+
     public static final List<String> DONATION_URLS = Arrays.asList("https://ko-fi.com/svenar", "https://patreon.com/svenar");
 
     private PlayerCameraDataTracker playerCameraDataTracker;
@@ -32,10 +33,15 @@ public class PowerCamera extends JavaPlugin {
     // public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
     // public Map<UUID, CameraHandler> playerCameraHandler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
     public Instant powercameraStartTime = Instant.now();
+
     private PluginDescriptionFile pdf;
+
     private String pluginChatPrefix = ChatColor.BLACK + "[" + ChatColor.AQUA + "%pluginName%" + ChatColor.BLACK + "] ";
+
     private PluginConfig configPlugin;
+
     private CameraStorage configCameras;
+
     private MainCommand mainCommand;
 
     @Override

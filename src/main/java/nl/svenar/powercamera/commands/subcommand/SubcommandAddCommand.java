@@ -29,10 +29,10 @@ public class SubcommandAddCommand extends PowerCameraCommand {
             sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " addcommand <command>");
             return false;
         }
-        
+
         PlayerCameraData cameraData = plugin.getPlayerData().get(player);
         String cameraName = cameraData.getSelectedCameraId();
-        
+
         if (cameraName != null) {
             String command = String.join(" ", args);
             plugin.getConfigCameras().cameraAddcommand(command, cameraName);

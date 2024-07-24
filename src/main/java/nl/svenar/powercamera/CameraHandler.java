@@ -25,15 +25,19 @@ public class CameraHandler extends BukkitRunnable {
     private int ticks = 0;
 
     private final PowerCamera plugin;
+
     private final Player player;
 
     private final String cameraName;
 
     private final ArrayList<Location> cameraPathPoints = new ArrayList<Location>();
+
     private final HashMap<Integer, ArrayList<String>> cameraPathCommands = new HashMap<>();
 
     private GameMode previousGamemode;
+
     private Location previousPlayerLocation;
+
     private boolean previousInvisible;
 
     public CameraHandler(PowerCamera plugin, Player player, String cameraName) {
@@ -177,6 +181,7 @@ public class CameraHandler extends BukkitRunnable {
         try {
             this.cancel();
         } catch (Exception ignored) {
+            // ignored
         }
 
         player.teleport(previousPlayerLocation);

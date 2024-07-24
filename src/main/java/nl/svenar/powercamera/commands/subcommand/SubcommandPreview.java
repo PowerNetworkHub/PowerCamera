@@ -1,6 +1,5 @@
 package nl.svenar.powercamera.commands.subcommand;
 
-
 import nl.svenar.powercamera.CameraHandler;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.commands.PowerCameraCommand;

@@ -45,8 +45,6 @@ public class PlayerJoinHandler implements Listener {
                 CameraHandler cameraHandler = new CameraHandler(plugin, player, cameraName).generatePath().start();
                 plugin.getPlayerData().get(player).setCameraHandler(cameraHandler);
             }
-
-
         } catch (Exception ex) {
             // Ignore
         }

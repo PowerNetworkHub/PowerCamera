@@ -35,7 +35,7 @@ public class SubcommandAddPoint extends PowerCameraCommand {
 
         String cameraName = cameraData.getSelectedCameraId();
 
-        if(args.length == 1) {
+        if (args.length == 1) {
             easing = args[0];
             if (!easing.equalsIgnoreCase("linear") && !easing.equalsIgnoreCase("teleport")) {
                 sendMessage(sender, ChatColor.DARK_RED + "Usage: /" + commandLabel + " addpoint [linear/teleport]");

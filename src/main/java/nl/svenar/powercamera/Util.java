@@ -19,8 +19,11 @@ public final class Util {
     }
 
     private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]?$");
+
     private static final Pattern REGEX_SECONDS = Pattern.compile("\\d+[sS]");
+
     private static final Pattern REGEX_MINUTES = Pattern.compile("\\d+[mM]");
+
     private static final Pattern REGEX_HOURS = Pattern.compile("\\d+[hH]");
 
     public static String serializeLocation(Location loc) {

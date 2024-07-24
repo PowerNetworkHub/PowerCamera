@@ -11,7 +11,9 @@ public class PlayerCameraData {
     private final UUID playerId;
 
     private String selectedCameraId;
+
     private CameraMode cameraMode = CameraMode.NONE;
+
     private CameraHandler cameraHandler;
 
     public PlayerCameraData(UUID playerId) {
@@ -43,7 +45,6 @@ public class PlayerCameraData {
     }
 
     // SETTERS
-
 
     public void setSelectedCameraId(String selectedCameraId) {
         this.selectedCameraId = selectedCameraId;

@@ -11,6 +11,7 @@ public abstract class PowerCameraCommand {
     protected PowerCamera plugin;
 
     private final CommandExecutionContext ce;
+
     private final String commandName;
 
     protected PowerCameraCommand(PowerCamera plugin, String commandName, CommandExecutionContext ce) {

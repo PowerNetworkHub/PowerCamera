@@ -21,6 +21,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class CameraStorage {
 
     private File configFile;
+
     private FileConfiguration config;
 
     private final PowerCamera plugin;
