@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>works.reload</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.7.3</version>
+		<version>1.7.4</version>
 		<relativePath/>
 	</parent>
 
@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- project version -->
-		<revision>0.7.1</revision>
+		<revision>0.7.2</revision>
 		<changelist>-SNAPSHOT</changelist>
 	</properties>
 
@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.16.3-R0.1-SNAPSHOT</version>
+			<version>1.16.3-R0.1-20201025.071724-27</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
