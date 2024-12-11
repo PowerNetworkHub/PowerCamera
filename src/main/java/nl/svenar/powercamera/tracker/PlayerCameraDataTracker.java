@@ -1,10 +1,11 @@
 package nl.svenar.powercamera.tracker;
 
+import nl.svenar.powercamera.data.PlayerCameraData;
+import org.bukkit.entity.Player;
+
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import nl.svenar.powercamera.data.PlayerCameraData;
-import org.bukkit.entity.Player;
 
 @SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.CommentRequired", "PMD.MethodArgumentCouldBeFinal"})
 public class PlayerCameraDataTracker {
@@ -24,7 +25,6 @@ public class PlayerCameraDataTracker {
     }
 
     public void handlePlayerQuit(Player player) {
-        cameraDataMap.remove(player.getUniqueId());
+        cameraDataMap.remove(player.getUniqueId()).getCameraHandler().cancel();
     }
-
 }

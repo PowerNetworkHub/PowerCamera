@@ -1,44 +1,44 @@
 name: '${project.name}'
 version: '${project.version}'
 main: nl.svenar.powercamera.PowerCamera
-api-version: 1.13
+api-version: 1.20
 description: "Power Camera: Create awesome cinematic videos"
-authors: [svenar_nl]
+authors: [ svenar_nl ]
 website: 'http://dev.bukkit.org/bukkit-plugins/powercamera/'
 commands:
-    powercamera:
-        description: Main command
-        aliases: [powercam, pcam, pc, cam]
+  powercamera:
+    description: Main command
+    aliases: [ powercam, pcam, pc, cam ]
 permissions:
-    powercamera.cmd.help:
-        default: op
-    powercamera.cmd.reload:
-        default: op
-    powercamera.cmd.create:
-        default: op
-    powercamera.cmd.remove:
-        default: op
-    powercamera.cmd.addpoint:
-        default: op
-    powercamera.cmd.delpoint:
-        default: op
-    powercamera.cmd.select:
-        default: op
-    powercamera.cmd.preview:
-        default: op
-    powercamera.cmd.info:
-        default: op
-    powercamera.cmd.setduration:
-        default: op
-    powercamera.cmd.start:
-        default: op
-    powercamera.cmd.startother:
-        default: op
-    powercamera.cmd.stop:
-        default: op
-    powercamera.cmd.stats:
-        default: op
-    powercamera.hidestartmessages:
-        default: not op
-    powercamera.bypass.joincamera:
-        default: false
+  powercamera.cmd.help:
+    default: op
+  powercamera.cmd.reload:
+    default: op
+  powercamera.cmd.create:
+    default: op
+  powercamera.cmd.remove:
+    default: op
+  powercamera.cmd.addpoint:
+    default: op
+  powercamera.cmd.delpoint:
+    default: op
+  powercamera.cmd.select:
+    default: op
+  powercamera.cmd.preview:
+    default: op
+  powercamera.cmd.info:
+    default: op
+  powercamera.cmd.setduration:
+    default: op
+  powercamera.cmd.start:
+    default: op
+  powercamera.cmd.startother:
+    default: op
+  powercamera.cmd.stop:
+    default: op
+  powercamera.cmd.stats:
+    default: op
+  powercamera.hidestartmessages:
+    default: not op
+  powercamera.bypass.joincamera:
+    default: false

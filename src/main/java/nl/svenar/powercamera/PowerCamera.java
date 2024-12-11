@@ -1,12 +1,8 @@
 package nl.svenar.powercamera;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import nl.svenar.powercamera.commands.MainCommand;
+import nl.svenar.powercamera.config.ActiveCameraStorage;
 import nl.svenar.powercamera.config.CameraStorage;
 import nl.svenar.powercamera.config.PluginConfig;
 import nl.svenar.powercamera.events.ChatTabExecutor;
@@ -19,6 +15,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE", "MS_MUTABLE_COLLECTION_PKGPROTECT", "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"})
 @SuppressWarnings({"PMD.AtLeastOneConstructor", "PMD.AvoidDuplicateLiterals", "PMD.AvoidReassigningLoopVariables", "PMD.CognitiveComplexity", "PMD.CommentRequired", "PMD.CyclomaticComplexity", "PMD.LocalVariableCouldBeFinal", "PMD.LooseCoupling", "PMD.UnnecessaryImport", "PMD.UseDiamondOperator"})
 public class PowerCamera extends JavaPlugin {
@@ -27,12 +28,12 @@ public class PowerCamera extends JavaPlugin {
 
     public static final List<String> DONATION_URLS = Arrays.asList("https://ko-fi.com/svenar", "https://patreon.com/svenar");
 
-    private PlayerCameraDataTracker playerCameraDataTracker;
-
     // public Map<UUID, String> playerSelectedCamera = new HashMap<>(); // Selected camera name
     // public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
     // public Map<UUID, CameraHandler> playerCameraHandler = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
     public Instant powercameraStartTime = Instant.now();
+
+    private PlayerCameraDataTracker playerCameraDataTracker;
 
     private PluginDescriptionFile pdf;
 
@@ -41,6 +42,8 @@ public class PowerCamera extends JavaPlugin {
     private PluginConfig configPlugin;
 
     private CameraStorage configCameras;
+
+    private ActiveCameraStorage configActiveCameras;
 
     private MainCommand mainCommand;
 
@@ -93,6 +96,7 @@ public class PowerCamera extends JavaPlugin {
     private void setupConfig() {
         configPlugin = new PluginConfig(this, "config.yml");
         configCameras = new CameraStorage(this);
+        configActiveCameras = new ActiveCameraStorage(this);
 
         configPlugin.getConfig().set("version", null);
         configCameras.getConfig().set("version", null);
@@ -148,6 +152,10 @@ public class PowerCamera extends JavaPlugin {
 
     public CameraStorage getConfigCameras() {
         return configCameras;
+    }
+
+    public ActiveCameraStorage getConfigActiveCameras() {
+        return configActiveCameras;
     }
 
     public MainCommand getMainCommand() {
