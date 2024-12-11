@@ -29,11 +29,6 @@ public class ActiveCameraStorage {
     private static final PersistentDataGameMode PERSISTENT_DATA_GAME_MODE = new PersistentDataGameMode();
 
     /**
-     * The persistent data boolean type.
-     */
-    private static final PersistentDataBoolean PERSISTENT_DATA_BOOLEAN = new PersistentDataBoolean();
-
-    /**
      * The active camera key.
      */
     private final NamespacedKey activeCamera;
@@ -80,8 +75,8 @@ public class ActiveCameraStorage {
         if (!persistentDataContainer.has(lastGameMode, PERSISTENT_DATA_GAME_MODE)) {
             persistentDataContainer.set(lastGameMode, PERSISTENT_DATA_GAME_MODE, player.getGameMode());
         }
-        if (!persistentDataContainer.has(lastVisibility, PERSISTENT_DATA_BOOLEAN)) {
-            persistentDataContainer.set(lastVisibility, PERSISTENT_DATA_BOOLEAN, player.isInvisible());
+        if (!persistentDataContainer.has(lastVisibility, PersistentDataType.BOOLEAN)) {
+            persistentDataContainer.set(lastVisibility, PersistentDataType.BOOLEAN, player.isInvisible());
         }
     }
 
@@ -108,7 +103,7 @@ public class ActiveCameraStorage {
         }
         persistentDataContainer.remove(lastGameMode);
         if (visibility) {
-            final Boolean visibilityValue = persistentDataContainer.get(lastVisibility, PERSISTENT_DATA_BOOLEAN);
+            final Boolean visibilityValue = persistentDataContainer.get(lastVisibility, PersistentDataType.BOOLEAN);
             if (visibilityValue != null) {
                 player.setInvisible(visibilityValue);
             }
@@ -189,32 +184,6 @@ public class ActiveCameraStorage {
         @Override
         public @NotNull GameMode fromPrimitive(@NotNull final String primitive, @NotNull final PersistentDataAdapterContext context) {
             return GameMode.valueOf(primitive);
-        }
-    }
-
-    /**
-     * {@link PersistentDataType} for {@link Boolean}.
-     */
-    private static final class PersistentDataBoolean implements PersistentDataType<Byte, Boolean> {
-
-        @Override
-        public @NotNull Class<Byte> getPrimitiveType() {
-            return Byte.class;
-        }
-
-        @Override
-        public @NotNull Class<Boolean> getComplexType() {
-            return Boolean.class;
-        }
-
-        @Override
-        public @NotNull Byte toPrimitive(@NotNull final Boolean complex, @NotNull final PersistentDataAdapterContext context) {
-            return complex ? (byte) 1 : 0;
-        }
-
-        @Override
-        public @NotNull Boolean fromPrimitive(@NotNull final Byte primitive, @NotNull final PersistentDataAdapterContext context) {
-            return primitive == 1;
         }
     }
 }
