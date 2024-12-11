@@ -1,22 +1,17 @@
 package nl.svenar.powercamera;
 
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
+
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 @SuppressWarnings({"PMD.CommentRequired", "PMD.FieldDeclarationsShouldBeAtStartOfClass", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.ShortClassName", "PMD.ShortVariable"})
 public final class Util {
-
-    private Util() {
-    }
 
     private static final Pattern REGEX_INT = Pattern.compile("^\\d+[^a-zA-Z]?$");
 
@@ -25,6 +20,9 @@ public final class Util {
     private static final Pattern REGEX_MINUTES = Pattern.compile("\\d+[mM]");
 
     private static final Pattern REGEX_HOURS = Pattern.compile("\\d+[hH]");
+
+    private Util() {
+    }
 
     public static String serializeLocation(Location loc) {
         return loc.getWorld().getUID() + ";" + loc.getX() + ";" + loc.getY() + ";" + loc.getZ() + ";" + loc.getYaw() + ";" + loc.getPitch();
@@ -76,13 +74,5 @@ public final class Util {
         }
 
         return seconds;
-    }
-
-    public static boolean isPlayerInvisible(Player player) {
-        try {
-            return player.isInvisible();
-        } catch (NoSuchMethodError e) {
-            return player.hasPotionEffect(PotionEffectType.INVISIBILITY);
-        }
     }
 }

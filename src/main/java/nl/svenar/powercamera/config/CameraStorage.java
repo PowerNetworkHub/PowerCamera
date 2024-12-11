@@ -1,6 +1,11 @@
 package nl.svenar.powercamera.config;
 
-import java.io.File;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import nl.svenar.powercamera.PowerCamera;
+import nl.svenar.powercamera.Util;
+import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,55 +13,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import nl.svenar.powercamera.PowerCamera;
-import nl.svenar.powercamera.Util;
-import org.bukkit.Location;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 @SuppressFBWarnings({"CT_CONSTRUCTOR_THROW", "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"})
 @SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.AvoidPrintStackTrace", "PMD.AvoidReassigningParameters", "PMD.CommentRequired", "PMD.LinguisticNaming", "PMD.LocalVariableCouldBeFinal", "PMD.MethodArgumentCouldBeFinal", "PMD.TooManyMethods", "PMD.UseCollectionIsEmpty", "PMD.UseDiamondOperator"})
-public class CameraStorage {
-
-    private File configFile;
-
-    private FileConfiguration config;
-
-    private final PowerCamera plugin;
-
+public class CameraStorage extends PluginConfig {
     public CameraStorage(PowerCamera plugin) {
-        this.plugin = plugin;
-
-        createConfigFile();
-    }
-
-    private void createConfigFile() {
-        configFile = new File(plugin.getDataFolder(), "camera.yml");
-        if (!configFile.exists()) {
-            configFile.getParentFile().mkdirs();
-            plugin.saveResource("camera.yml", false);
-        }
-
-        config = new YamlConfiguration();
-        try {
-            config.load(configFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public FileConfiguration getConfig() {
-        return this.config;
-    }
-
-    public void saveConfig() {
-        try {
-            this.config.save(this.configFile);
-        } catch (IOException e) {
-            plugin.getLogger().severe("Error saving " + configFile.getName());
-        }
+        super(plugin, "camera.yml");
     }
 
     public void reloadConfig() {
