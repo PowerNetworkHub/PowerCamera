@@ -1,5 +1,6 @@
 package nl.svenar.powercamera.tracker;
 
+import nl.svenar.powercamera.CameraHandler;
 import nl.svenar.powercamera.data.PlayerCameraData;
 import org.bukkit.entity.Player;
 
@@ -25,6 +26,9 @@ public class PlayerCameraDataTracker {
     }
 
     public void handlePlayerQuit(Player player) {
-        cameraDataMap.remove(player.getUniqueId()).getCameraHandler().cancel();
+        final CameraHandler cameraHandler = cameraDataMap.remove(player.getUniqueId()).getCameraHandler();
+        if (cameraHandler != null) {
+            cameraHandler.cancel();
+        }
     }
 }
