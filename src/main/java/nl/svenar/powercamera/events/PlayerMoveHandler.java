@@ -1,5 +1,6 @@
 package nl.svenar.powercamera.events;
 
+import com.destroystokyo.paper.event.player.PlayerStartSpectatingEntityEvent;
 import nl.svenar.powercamera.PowerCamera;
 import nl.svenar.powercamera.data.CameraMode;
 import nl.svenar.powercamera.data.PlayerCameraData;
@@ -21,9 +22,17 @@ public class PlayerMoveHandler implements Listener {
     public void onPlayerMove(PlayerMoveEvent event) {
         PlayerCameraData playerCameraData = plugin.getPlayerData().get(event.getPlayer());
 
-        if (playerCameraData.getCameraMode() == CameraMode.PREVIEW) {
+        if (playerCameraData.getCameraMode() != CameraMode.NONE) {
             event.setCancelled(true);
         }
+    }
 
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
+    public void onPlayerSpectate(PlayerStartSpectatingEntityEvent event) {
+        PlayerCameraData playerCameraData = plugin.getPlayerData().get(event.getPlayer());
+
+        if (playerCameraData.getCameraMode() != CameraMode.NONE) {
+            event.setCancelled(true);
+        }
     }
 }
