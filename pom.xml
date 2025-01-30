@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- project version -->
-		<revision>0.8.1</revision>
+		<revision>0.9.0</revision>
 		<changelist>-SNAPSHOT</changelist>
 	</properties>
 
@@ -27,8 +27,8 @@
 			<url>https://nexus.reloadkube.managedservices.resilient-teched.com/repository/reload/</url>
 		</repository>
 		<repository>
-			<id>spigotmc-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+			<id>papermc</id>
+			<url>https://repo.papermc.io/repository/maven-public/</url>
 		</repository>
 	</repositories>
 
@@ -42,9 +42,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.20.4-R0.1-20240423.152506-123</version>
+			<groupId>io.papermc.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.20.4-R0.1-20241030.192207-176</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

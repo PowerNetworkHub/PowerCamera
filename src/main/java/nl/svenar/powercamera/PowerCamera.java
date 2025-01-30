@@ -47,8 +47,23 @@ public class PowerCamera extends JavaPlugin {
 
     private MainCommand mainCommand;
 
+    private static boolean hasClass(final String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
     @Override
     public void onEnable() {
+        if (!(hasClass("com.destroystokyo.paper.PaperConfig") || hasClass("io.papermc.paper.configuration.Configuration"))) {
+            getLogger().severe("This plugin requires Paper to run. Please install Paper and restart your server.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         pdf = this.getDescription();
 
         pluginChatPrefix = pluginChatPrefix.replace("%pluginName%", pdf.getName());
