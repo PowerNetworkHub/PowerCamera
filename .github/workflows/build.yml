@@ -1,0 +1,16 @@
+name: Build
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: ResilientGroup/MavenSetup/.github/workflows/build.yml@1.9.0
+    with:
+      javadoc-project-name: PowerCamera
+    secrets: inherit

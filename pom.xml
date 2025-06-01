@@ -1,0 +1,63 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>works.reload</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.10.0</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>PowerCamera</groupId>
+	<artifactId>PowerCamera</artifactId>
+	<version>${revision}${changelist}</version>
+	<name>PowerCamera</name>
+
+	<properties>
+		<!-- project version -->
+		<revision>0.9.0</revision>
+		<changelist>-SNAPSHOT</changelist>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>reload-repo</id>
+			<url>https://nexus.reloadkube.managedservices.resilient-teched.com/repository/reload/</url>
+		</repository>
+		<repository>
+			<id>papermc</id>
+			<url>https://repo.papermc.io/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<site>
+			<id>${project.artifactId}-site</id>
+			<url>file:///tmp/dummy-site
+			</url> <!-- Needs to be defined here to avoid that "PowerCamera" is appended to the staging directory. -->
+		</site>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.papermc.paper</groupId>
+			<artifactId>paper-api</artifactId>
+			<version>1.20.4-R0.1-20241030.192207-176</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<suppressionsLocation>${project.basedir}/checkstyle-suppressions.xml</suppressionsLocation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
