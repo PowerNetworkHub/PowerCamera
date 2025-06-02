@@ -26,7 +26,7 @@ public class PowerCamera extends JavaPlugin {
 
     public static final String WEBSITE_URL = "https://svenar.nl/powercamera";
 
-    public static final List<String> DONATION_URLS = Arrays.asList("https://ko-fi.com/svenar", "https://patreon.com/svenar");
+    public static final String DONATION_URL = "https://ko-fi.com/svenar";
 
     // public Map<UUID, String> playerSelectedCamera = new HashMap<>(); // Selected camera name
     // public Map<UUID, CameraMode> playerCameraMode = new HashMap<>(); // When the player is viewing the camera (/pc start & /pc preview)
@@ -76,7 +76,7 @@ public class PowerCamera extends JavaPlugin {
         setupConfig();
 
         getLogger().info("Enabled " + getPluginDescriptionFile().getName() + " v" + getPluginDescriptionFile().getVersion());
-        getLogger().info("If you'd like to donate, please visit " + DONATION_URLS.get(0) + " or " + DONATION_URLS.get(1));
+        getLogger().info("If you'd like to donate, please visit " + DONATION_URL);
 
         int pluginId = 9107;
         @SuppressWarnings("unused")
@@ -145,11 +145,6 @@ public class PowerCamera extends JavaPlugin {
                 }
 
                 newPoints.add(point);
-//				if (point.contains(":")) {
-//					newPoints.add(point);
-//				} else {
-//					newPoints.add("location:" + point);
-//				}
             }
             configCameras.getConfig().set("cameras." + cameraName + ".points", newPoints);
         }

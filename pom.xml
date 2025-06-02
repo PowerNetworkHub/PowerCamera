@@ -17,11 +17,15 @@
 
 	<properties>
 		<!-- project version -->
-		<revision>0.9.0</revision>
+		<revision>0.9.1</revision>
 		<changelist>-SNAPSHOT</changelist>
 	</properties>
 
 	<repositories>
+		<repository>
+			<id>svenar-repo</id>
+			<url>https://repo.svenar.nl/</url>
+		</repository>
 		<repository>
 			<id>reload-repo</id>
 			<url>https://nexus.reloadkube.managedservices.resilient-teched.com/repository/reload/</url>
@@ -44,12 +48,14 @@
 		<dependency>
 			<groupId>io.papermc.paper</groupId>
 			<artifactId>paper-api</artifactId>
-			<version>1.20.4-R0.1-20241030.192207-176</version>
+			<version>1.21.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
-	<build>
+    <build>
+        <defaultGoal>clean compile package</defaultGoal>
+        <finalName>${project.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
